@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val key = securityHelper.getEncryptionKey()
         try {
             val encryptedPassword = AESCrypt.encrypt(key, plainPW)
-            Log.d("TAG", encryptedPassword)
+            Log.d("TAG", "ENCRYPTED PASSWORD: $encryptedPassword")
         }        catch (e: GeneralSecurityException){
             throw Exception("Key is most-likely not generated \n $e")
         }
