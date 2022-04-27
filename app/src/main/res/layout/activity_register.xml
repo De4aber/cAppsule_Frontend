@@ -139,7 +139,7 @@
         android:text="Terms of service"
         android:textColor="#ff64C6C0"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSignUpNow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/checkBox" />
@@ -152,14 +152,14 @@
         android:layout_marginRight="2dp"
         android:text="I agree to the"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSignUpNow"
         app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonSignUpNow"
         android:layout_width="180dp"
         android:layout_height="40dp"
         android:layout_marginBottom="40dp"
