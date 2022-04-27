@@ -7,15 +7,12 @@ import kotlinx.android.synthetic.main.activity_user.*
 
 class UserActivity : AppCompatActivity() {
 
-    val sampleRepo = SampleRepo()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
 
-        sampleRepo.getAll(object : ICallback{
-            override fun onUsersReady(users: List<BEUser>) {
-                txtUsername.text = users[0].name
-            }
-        })
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragmentFriendList, FriendListFragment()).commit()
     }
 }
