@@ -37,12 +37,27 @@ class SignUpActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, R.string.passwordUnder8, Toast.LENGTH_SHORT).show()
             return
         }
-        val pattern: Pattern = Pattern.compile("[^a-zA-Z0-9]")
-        val matcher: Matcher = pattern.matcher(pw1)
-        val isStringContainsSpecialCharacter: Boolean = matcher.find()
-        if(!isStringContainsSpecialCharacter){
+        if(!checkForPattern(pw1,"[^a-zA-Z0-9]")){
             Toast.makeText(applicationContext, R.string.passwordNoSpecialCharacters, Toast.LENGTH_SHORT).show()
             return
         }
+        if (!checkForPattern(pw1,"[a-z]")){
+            Toast.makeText(applicationContext, R.string.passwordNoLowerCase, Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (!checkForPattern(pw1,"[A-Z]")) {
+            Toast.makeText(applicationContext, R.string.passwordNoUpperCase, Toast.LENGTH_SHORT).show()
+            return
+        }
+        if(!checkForPattern(pw1,"[0-9]")){
+            Toast.makeText(applicationContext, R.string.passwordNoNumbers, Toast.LENGTH_SHORT).show()
+            return
+        }
+    }
+
+    private fun checkForPattern(text: String, pattern: String): Boolean {
+        val pattern: Pattern = Pattern.compile(pattern)
+        val matcher: Matcher = pattern.matcher(text)
+        return matcher.find()
     }
 }
