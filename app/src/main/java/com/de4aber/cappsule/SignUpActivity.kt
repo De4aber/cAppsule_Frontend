@@ -34,32 +34,44 @@ class SignUpActivity : AppCompatActivity() {
         val pw1 = editTextTextPassword.text.toString()
         val pw2 = editTextTextPassword2.text.toString()
 
+        //Check if the two password is identical
         if(pw1 != pw2){
             Toast.makeText(applicationContext, R.string.passwordNoMatch, Toast.LENGTH_SHORT).show()
             return
         }
+        //Check for password length is 8 or above
         if(pw1.length < 8){
             Toast.makeText(applicationContext, R.string.passwordUnder8, Toast.LENGTH_SHORT).show()
             return
         }
+        //Check for special characters
         if(!checkForPattern(pw1,"[^a-zA-Z0-9]")){
             Toast.makeText(applicationContext, R.string.passwordNoSpecialCharacters, Toast.LENGTH_SHORT).show()
             return
         }
+        //Check for lowercase characters
         if (!checkForPattern(pw1,"[a-z]")){
             Toast.makeText(applicationContext, R.string.passwordNoLowerCase, Toast.LENGTH_SHORT).show()
             return
         }
+        //Check for uppercase characters
         if (!checkForPattern(pw1,"[A-Z]")) {
             Toast.makeText(applicationContext, R.string.passwordNoUpperCase, Toast.LENGTH_SHORT).show()
             return
         }
+        //Check for numbers
         if(!checkForPattern(pw1,"[0-9]")){
             Toast.makeText(applicationContext, R.string.passwordNoNumbers, Toast.LENGTH_SHORT).show()
             return
         }
     }
 
+    /**
+     * Checks if the Regex pattern is in the string given
+     *
+     * @param text the string given
+     * @param pattern Regex to check for
+     */
     private fun checkForPattern(text: String, pattern: String): Boolean {
         val pattern: Pattern = Pattern.compile(pattern)
         val matcher: Matcher = pattern.matcher(text)
