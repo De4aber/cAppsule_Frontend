@@ -6,4 +6,5 @@
     <string name="passwordNoNumbers">Password must contain at least one number</string>
     <string name="passwordNoLowerCase">Password must contain at least one lowercase character</string>
     <string name="passwordNoUpperCase">Password must contain at least one uppercase character</string>
+    <string name="passwordReqs">Password must contain uppercase, lowercase, number, and a special character with 8+ characters</string>
 </resources>

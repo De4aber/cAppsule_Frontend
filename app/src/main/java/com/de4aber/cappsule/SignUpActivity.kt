@@ -17,17 +17,22 @@ class SignUpActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener { onClickLogin() }
         buttonSignUpNow.setOnClickListener { onClickSignUp() }
+        passInfo.setOnClickListener { onClickPasswordInfo() }
     }
 
     private fun onClickLogin() {
         finish()
     }
 
+    private fun onClickPasswordInfo() {
+        Toast.makeText(applicationContext, R.string.passwordReqs, Toast.LENGTH_LONG).show()
+    }
+
     private fun onClickSignUp() {
         val username = editTextTextPersonName
+
         val pw1 = editTextTextPassword.text.toString()
         val pw2 = editTextTextPassword2.text.toString()
-
 
         if(pw1 != pw2){
             Toast.makeText(applicationContext, R.string.passwordNoMatch, Toast.LENGTH_SHORT).show()
