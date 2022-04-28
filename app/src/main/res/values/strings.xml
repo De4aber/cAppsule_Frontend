@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">cAppsule</string>
-    <string name="passwordNoMatch">Password does not match</string>
     <string name="passwordUnder8">Password must be 8+ characters</string>
     <string name="passwordNoSpecialCharacters">Password must contain special characters</string>
     <string name="passwordNoNumbers">Password must contain at least one number</string>
     <string name="passwordNoLowerCase">Password must contain at least one lowercase character</string>
     <string name="passwordNoUpperCase">Password must contain at least one uppercase character</string>
     <string name="passwordReqs">Password must contain uppercase, lowercase, number, and a special character with 8+ characters</string>
+    <string name="passwordNoMatch">Password does not match</string>
 </resources>
