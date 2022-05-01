@@ -30,11 +30,14 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun onClickSignUp() {
 
-        if (!isLegalUsername()){
+        val username = editTextTextPersonName.text.toString()
+        if (!isLegalUsername(username)){
             return
         }
 
-        if (!isLegalPassword()){
+        val pw1 = editTextTextPassword.text.toString()
+        val pw2 = editTextTextPassword2.text.toString()
+        if (!isLegalPassword(pw1, pw2)){
             return
         }
     }
@@ -44,12 +47,11 @@ class SignUpActivity : AppCompatActivity() {
      * (8+ characters, special character, lowercase character, uppercase character, and a number)
      * and diplays a message to the user if not approved
      *
+     * @param pw1 first user-provided password
+     * @param pw2 second user-provided password
      * @return returns true if password is approved
      */
-    private fun isLegalPassword(): Boolean{
-        val pw1 = editTextTextPassword.text.toString()
-        val pw2 = editTextTextPassword2.text.toString()
-
+    private fun isLegalPassword(pw1: String, pw2: String): Boolean{
         //Check if the two password is identical
         if(pw1 != pw2){
             Toast.makeText(applicationContext, R.string.passwordNoMatch, Toast.LENGTH_SHORT).show()
@@ -88,10 +90,10 @@ class SignUpActivity : AppCompatActivity() {
      * Checks if the user-provided username is 4 or more characters
      * and displays a message to the user if not approved
      *
+     * @param username user-provided username
      * @return returns true if username is approved
      */
-    private fun isLegalUsername(): Boolean{
-        val username = editTextTextPersonName.text.toString()
+    private fun isLegalUsername(username: String): Boolean{
         if(username.length < 4){
             Toast.makeText(applicationContext, R.string.usernameTooShort, Toast.LENGTH_SHORT).show()
             return false
