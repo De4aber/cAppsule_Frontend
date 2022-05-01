@@ -43,7 +43,7 @@ class SignUpActivity : AppCompatActivity() {
      * Checks if the user provided passwords is identical, and checks if the password is secure enough
      * (8+ characters, special character, lowercase character, uppercase character, and a number)
      * and diplays a message to the user if not approved
-     *@
+     *
      * @return returns true if password is approved
      */
     private fun isLegalPassword(): Boolean{
@@ -103,6 +103,7 @@ class SignUpActivity : AppCompatActivity() {
      *
      * @param text the string given
      * @param pattern Regex to check for
+     * @return returns false if no match
      */
     private fun checkForPattern(text: String, pattern: String): Boolean {
         val pattern: Pattern = Pattern.compile(pattern)
