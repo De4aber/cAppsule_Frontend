@@ -7,4 +7,5 @@
     <string name="passwordNoUpperCase">Password must contain at least one uppercase character</string>
     <string name="passwordReqs">Password must contain uppercase, lowercase, number, and a special character with 8+ characters</string>
     <string name="passwordNoMatch">Password does not match</string>
+    <string name="usernameTooShort">Username must be 4 or more characters</string>
 </resources>
