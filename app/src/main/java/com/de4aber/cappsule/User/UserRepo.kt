@@ -3,12 +3,14 @@ package com.de4aber.cappsule.User
 import android.util.Log
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
+import com.loopj.android.http.JsonHttpResponseHandler
+import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONException
 
 private const val TAG ="SampleRepo"
-class SampleRepo {
+class UserRepo {
 
     private val url = "http://185.51.76.204:8091/User"
 
@@ -36,6 +38,34 @@ class SampleRepo {
             }
 
         })
+    }
+
+    fun createUser(user: BEUser) {
+        val params = RequestParams()
+        params.put("username", user.name)
+
+        httpClient.post("$url/CreateUser", params, object : AsyncHttpResponseHandler() {
+
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                Log.d(TAG, "success in createUser statusCode = $statusCode")
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in createUser statusCode = $statusCode")
+            }
+        })
+
+
+
     }
 
     private fun getUsersFromString(jsonString: String?): List<BEUser> {

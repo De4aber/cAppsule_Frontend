@@ -3,9 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/drawable/ic_logo.xml" value="0.2995" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/activity_login.xml" value="0.67" />
-        <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/activity_register.xml" value="0.1" />
-        <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/activity_user.xml" value="0.33" />
+        <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/activity_register.xml" value="0.5" />
+        <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/activity_user.xml" value="0.4732510288065844" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_friend_list.xml" value="0.2" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/friend_fragment.xml" value="0.18802083333333333" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/list_item_friend.xml" value="0.18802083333333333" />

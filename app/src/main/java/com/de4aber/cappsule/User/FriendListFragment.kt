@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.de4aber.cappsule.R
-import kotlinx.android.synthetic.main.activity_user.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +22,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class FriendListFragment : Fragment() {
     //region Variables and Values
-    val sampleRepo = SampleRepo()
+    val sampleRepo = UserRepo()
     private var adapter: FriendAdapter? = null
     private lateinit var friendRecyclerView: RecyclerView
 
