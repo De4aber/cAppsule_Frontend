@@ -3,9 +3,12 @@ package com.de4aber.cappsule.User
 import android.util.Log
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
+import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONException
+import kotlin.math.log
+
 
 private const val TAG ="SampleRepo"
 class SampleRepo {
@@ -61,4 +64,30 @@ class SampleRepo {
         }
         return result
     }
+
+    fun loginUser(username: String, password: String){
+        val params = RequestParams()
+        params.put("username", username)
+        params.put("password", password)
+        httpClient.post(url, params, object : AsyncHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                Log.d(TAG, params.toString())
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in postUser statusCode = $statusCode")
+            }
+
+        })
+    }
+
 }
