@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         try {
             val encryptedPassword = AESCrypt.encrypt(key, plainPW)
             Log.d("TAG", "ENCRYPTED PASSWORD: $encryptedPassword")
+            val intent = Intent(this, CreateCapsuleActivity::class.java)
+            startActivity(intent);
         }        catch (e: GeneralSecurityException){
             throw Exception("Key is most-likely not generated \n $e")
         }

@@ -9,11 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CAppsule.NoActionBar">
-        <activity android:name=".SignUpActivity"
+        <activity
+            android:name=".CreateCapsuleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpActivity"
             android:exported="false"
-            android:theme="@style/Theme.CAppsule.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.CAppsule.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
