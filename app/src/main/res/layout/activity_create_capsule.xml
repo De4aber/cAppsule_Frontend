@@ -18,7 +18,7 @@
             android:text="Text | Picture" />
 
         <EditText
-            android:id="@+id/editTextTextMultiLine2"
+            android:id="@+id/editTextMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -27,18 +27,34 @@
 
         <Switch
             android:id="@+id/switch4"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time | Place" />
 
-        <TimePicker
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:timePickerMode="spinner" />
+            android:orientation="horizontal">
 
-        <androidx.recyclerview.widget.RecyclerView
+            <TimePicker
+                android:id="@+id/timePickerTime"
+                android:layout_width="176dp"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner" />
+
+            <DatePicker
+                android:id="@+id/datePickerDate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:datePickerMode="calendar"/>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lvFriends"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+        </ListView>
 
         <Button
             android:id="@+id/createTest"
