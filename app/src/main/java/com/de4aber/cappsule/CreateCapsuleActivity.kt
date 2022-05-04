@@ -14,6 +14,7 @@ class CreateCapsuleActivity : AppCompatActivity() {
     var friends = FriendListTemp()
     private val TAG = "xyz"
     private lateinit var pictureUri: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_capsule)
@@ -48,7 +49,9 @@ class CreateCapsuleActivity : AppCompatActivity() {
         date = date + (datePickerDate.month + 1) + "-"
         date += datePickerDate.year
         capsule.date = date
-        capsule.pictureUri = pictureUri
+        if(this::pictureUri.isInitialized){
+            capsule.pictureUri = pictureUri
+        }
         Log.d(TAG, capsule.toString())
     }
 
