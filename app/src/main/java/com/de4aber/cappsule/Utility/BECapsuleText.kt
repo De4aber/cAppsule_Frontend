@@ -1,5 +1,6 @@
-package com.de4aber.cappsule
+package com.de4aber.cappsule.Utility
 
+import com.de4aber.cappsule.Utility.BEFriend
 import java.io.Serializable
 
 class BECapsuleText(var receiver: List<BEFriend>) : Serializable{

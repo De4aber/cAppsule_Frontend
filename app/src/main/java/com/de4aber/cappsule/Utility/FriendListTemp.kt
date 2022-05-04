@@ -1,4 +1,4 @@
-package com.de4aber.cappsule
+package com.de4aber.cappsule.Utility
 
 import java.io.Serializable
 
