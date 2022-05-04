@@ -67,7 +67,7 @@ class TakePhotoActivity : AppCompatActivity() {
     }
 
     private fun OnClickSave() {
-        val data = Intent().apply { putExtra("friendPicture", picturePath) }
+        val data = Intent().apply { putExtra("picture", picturePath) }
         setResult(Activity.RESULT_OK, data)
         finish()
     }
@@ -120,11 +120,9 @@ class TakePhotoActivity : AppCompatActivity() {
     private fun setPicture() {
         if(!picturePath.contentEquals("")){
             viewFinder.visibility = View.INVISIBLE
-            Log.d(TAG, "$picturePath: ER PATH22222!!")
             val uri: Uri = Uri.parse(picturePath)
             takenPicture.setImageURI(uri)
             takenPicture.visibility = View.VISIBLE
-            Log.d(TAG, "$picturePath: ER PATH11111!!")
         }
     }
 

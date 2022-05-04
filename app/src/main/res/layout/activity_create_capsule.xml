@@ -12,11 +12,26 @@
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
-        <Button
-            android:id="@+id/btnOpenPictureMode"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Take Picture" />
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnOpenPictureMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Take Picture" />
+
+            <ImageView
+                android:id="@+id/imgPhoto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_logo"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/editTextMessage"

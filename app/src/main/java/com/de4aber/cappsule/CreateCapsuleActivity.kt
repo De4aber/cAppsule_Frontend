@@ -1,14 +1,19 @@
 package com.de4aber.cappsule
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.SimpleAdapter
+import androidx.activity.result.contract.ActivityResultContracts
 import kotlinx.android.synthetic.main.activity_create_capsule.*
 
 class CreateCapsuleActivity : AppCompatActivity() {
     var friends = FriendListTemp()
+    private val TAG = "xyz"
+    private lateinit var pictureUri: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_capsule)
@@ -20,8 +25,19 @@ class CreateCapsuleActivity : AppCompatActivity() {
 
     private fun onClickTakePhoto() {
         val intent = Intent(this, TakePhotoActivity::class.java)
-        startActivity(intent);
+        getResult.launch(intent)
     }
+
+    private val getResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                pictureUri = (it.data?.getSerializableExtra("picture") as String?).toString()
+                val uri: Uri = Uri.parse(pictureUri)
+                imgPhoto.setImageURI(uri)
+            }
+        }
 
     private fun onClickTest() {
         var recievers = mutableListOf<BEFriend>(BEFriend("bent"))
@@ -32,7 +48,8 @@ class CreateCapsuleActivity : AppCompatActivity() {
         date = date + (datePickerDate.month + 1) + "-"
         date += datePickerDate.year
         capsule.date = date
-        Log.d("TAG", capsule.toString())
+        capsule.pictureUri = pictureUri
+        Log.d(TAG, capsule.toString())
     }
 
     private fun asListMap(src: MutableList<BEFriend>): List<Map<String, String?>> {
