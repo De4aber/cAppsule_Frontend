@@ -22,6 +22,11 @@ class CreateCapsuleActivity : AppCompatActivity() {
         createTest.setOnClickListener { onClickTest() }
         timePickerTime.setIs24HourView(true)
         btnOpenPictureMode.setOnClickListener { onClickTakePhoto() }
+        btnOpenMapToSelectLocation.setOnClickListener { onClickOpenMap() }
+    }
+
+    private fun onClickOpenMap() {
+        TODO("Not yet implemented")
     }
 
     private fun onClickTakePhoto() {
