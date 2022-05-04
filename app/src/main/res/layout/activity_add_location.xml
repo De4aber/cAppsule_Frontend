@@ -24,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/map"
         android:layout_alignRight="@+id/map"
-        android:text="Save" />
+        android:text="Save"
+        android:onClick="onClickSave"/>
 
     <Button
         android:id="@+id/btnLocationBack"
@@ -32,7 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/map"
         android:layout_alignLeft="@+id/map"
-        android:text="Back" />
+        android:text="Back"
+        android:onClick="onClickBack"/>
 
     <Spinner
         android:layout_width="wrap_content"

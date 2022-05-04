@@ -29,7 +29,8 @@ class CreateCapsuleActivity : AppCompatActivity() {
     }
 
     private fun onClickOpenMap() {
-        TODO("Not yet implemented")
+        val intent = Intent(this, AddLocationActivity::class.java)
+        getResult.launch(intent)
     }
 
     private fun onClickTakePhoto() {
