@@ -1,5 +1,6 @@
 package com.de4aber.cappsule
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,17 +15,24 @@ class CreateCapsuleActivity : AppCompatActivity() {
         setupFriendList()
         createTest.setOnClickListener { onClickTest() }
         timePickerTime.setIs24HourView(true)
+        btnOpenPictureMode.setOnClickListener { onClickTakePhoto() }
+    }
 
+    private fun onClickTakePhoto() {
+        val intent = Intent(this, TakePhotoActivity::class.java)
+        startActivity(intent);
     }
 
     private fun onClickTest() {
-        Log.d("TAG", timePickerTime.currentHour.toString())
-        Log.d("TAG", timePickerTime.currentMinute.toString())
+        var recievers = mutableListOf<BEFriend>(BEFriend("bent"))
+        var capsule = BECapsuleText(recievers)
+        capsule.time = timePickerTime.currentHour.toString() + ":" + timePickerTime.currentMinute.toString()
         var date = ""
         date = date + datePickerDate.dayOfMonth + "-"
         date = date + (datePickerDate.month + 1) + "-"
         date += datePickerDate.year
-        Log.d("TAG", date)
+        capsule.date = date
+        Log.d("TAG", capsule.toString())
     }
 
     private fun asListMap(src: MutableList<BEFriend>): List<Map<String, String?>> {
