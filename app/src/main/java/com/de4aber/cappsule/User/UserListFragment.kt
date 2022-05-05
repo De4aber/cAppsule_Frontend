@@ -27,12 +27,10 @@ private const val ARG_PARAM2 = "param2"
 class UserListFragment : Fragment() {
     //region Variables and Values
 
-
-    val sampleRepo = UserRepo()
     private var adapter: FriendAdapter? = null
     private lateinit var friendRecyclerView: RecyclerView
     private val loginViewModel :LoginViewModel by lazy {
-        ViewModelProvider(this).get(LoginViewModel::class.java)
+        ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
     }
 
     //endregion
@@ -53,7 +51,7 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sampleRepo.getAll(object : IUserCallback{
+        loginViewModel.userRepo.getAll(object : IUserCallback{
             override fun onUsersReady(users: List<UserDTO>) {
                 updateUI(users)
             }
@@ -85,20 +83,9 @@ class UserListFragment : Fragment() {
             itemView.setOnClickListener { onClick() }
         }
          fun onClick() {
-
-
-            loginViewModel.userRepo.getUserById(object:UserRepo.IGetUserFromId{
-                override fun onUserReady(user: UserDTO) {
-                    val intent = FriendActivity.newIntent(requireContext(), user)
-                    startActivity(intent);
-                }
-            }, user.id)
-
-
-
+             val intent = FriendActivity.newIntent(requireContext(), user.id)
+             startActivity(intent);
             //Toast.makeText(context, user.username, Toast.LENGTH_SHORT).show()
-
-
         }
 
     }

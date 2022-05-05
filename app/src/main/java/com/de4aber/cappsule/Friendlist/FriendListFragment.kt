@@ -5,14 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.de4aber.cappsule.Friend.FriendDTO
-import com.de4aber.cappsule.Friend.FriendRepository
 import com.de4aber.cappsule.Friend.IFriendCallback
 import com.de4aber.cappsule.R
+import com.de4aber.cappsule.User.LoggedUserViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -21,9 +21,13 @@ import com.de4aber.cappsule.R
  */
 class FriendListFragment : Fragment() {
     //region Variables and Values
-    val friendRepository = FriendRepository()
+
     private var adapter: FriendAdapter? = null
     private lateinit var friendRecyclerView: RecyclerView
+
+    private val loggedUserViewModel : LoggedUserViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(LoggedUserViewModel::class.java)
+    }
 
     //endregion
     override fun onCreateView(
@@ -43,11 +47,11 @@ class FriendListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        friendRepository.getFriendsByUserId(object : IFriendCallback{
+        loggedUserViewModel.friendRepository.getFriendsByUserId(object : IFriendCallback{
             override fun onFriendsReady(friends: List<FriendDTO>) {
                 updateUI(friends)
             }
-        },1)
+        },loggedUserViewModel.loggedUser.id)
     }
 
     fun updateUI(friends: List<FriendDTO>){
