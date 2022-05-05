@@ -53,8 +53,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/friendScroll"
+        android:name="com.de4aber.cappsule.User.FriendListFragment"
         android:layout_width="413dp"
         android:layout_height="581dp"
         android:layout_marginTop="1dp"
@@ -64,13 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.016"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
