@@ -112,17 +112,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnWhoops"
+        android:id="@+id/und"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="51dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="227dp"
-        android:text="sorry Mike"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/Logo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="undskyld mig selv"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="53dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
