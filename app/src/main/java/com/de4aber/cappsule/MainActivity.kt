@@ -3,11 +3,16 @@ package com.de4aber.cappsule
 import android.R.attr.password
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import android.widget.Button
+import com.de4aber.cappsule.User.UserActivity
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_register.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.de4aber.cappsule.Utility.SecurityHelper
 import com.scottyab.aescrypt.AESCrypt
-import kotlinx.android.synthetic.main.activity_login.*
 import java.lang.Exception
 import java.security.GeneralSecurityException
 
@@ -19,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        btnWhoops.setOnClickListener{onClickLogin()}
         btnSignUp.setOnClickListener{onClickSignUp()}
         btnLogin.setOnClickListener { onClickLogin() }
     }
@@ -28,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent);
     }
 
-    private fun onClickLogin() {
+    private fun onClickLogin(){
+        
         val plainPW = editTextTextPassword.text.toString()
         val username = editTextTextPersonName.text.toString()
         val key = securityHelper.getEncryptionKey()
@@ -38,5 +45,7 @@ class MainActivity : AppCompatActivity() {
         }        catch (e: GeneralSecurityException){
             throw Exception("Key is most-likely not generated \n $e")
         }
+        val intent = Intent(this, UserActivity::class.java)
+        startActivity(intent);
     }
 }
