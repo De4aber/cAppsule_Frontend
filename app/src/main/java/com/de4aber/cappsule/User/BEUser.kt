@@ -8,7 +8,8 @@ class BEUser(val id:Int, val name:String) {
 
 
     constructor(jsonObject: JSONObject) :
-            this(Integer.parseInt(jsonObject["id"] as String),
+            this(
+                jsonObject["id"] as Int,
                 jsonObject["username"] as String)
 
     override fun toString(): String {

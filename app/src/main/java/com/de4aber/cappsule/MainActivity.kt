@@ -1,11 +1,7 @@
 package com.de4aber.cappsule
 
-import android.R.attr.password
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
-import android.widget.Button
 import com.de4aber.cappsule.User.UserActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
