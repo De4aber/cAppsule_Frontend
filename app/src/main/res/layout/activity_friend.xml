@@ -55,7 +55,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/friendScroll"
-        android:name="com.de4aber.cappsule.User.FriendListFragment"
+        android:name="com.de4aber.cappsule.Friendlist.FriendListFragment"
         android:layout_width="413dp"
         android:layout_height="581dp"
         android:layout_marginTop="1dp"

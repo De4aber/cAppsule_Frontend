@@ -17,10 +17,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FriendListFragment.newInstance] factory method to
+ * Use the [UserListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FriendListFragment : Fragment() {
+class UserListFragment : Fragment() {
     //region Variables and Values
     val sampleRepo = UserRepo()
     private var adapter: FriendAdapter? = null
@@ -32,9 +32,9 @@ class FriendListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_friend_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_user_list, container, false)
         friendRecyclerView=
-            view.findViewById(R.id.friend_recycler_view) as RecyclerView
+            view.findViewById(R.id.user_recycler_view) as RecyclerView
         friendRecyclerView.layoutManager = LinearLayoutManager(context)
 
         return view
@@ -44,7 +44,7 @@ class FriendListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sampleRepo.getAll(object : ICallback{
+        sampleRepo.getAll(object : IUserCallback{
             override fun onUsersReady(users: List<UserDTO>) {
                 updateUI(users)
             }
@@ -59,10 +59,10 @@ class FriendListFragment : Fragment() {
     private inner class FriendHolder(view: View)
         : RecyclerView.ViewHolder(view){
         private lateinit var friend: UserDTO
-        private val txtId: TextView = itemView.findViewById(R.id.txt_UserId)
-        private val txtUsername: TextView = itemView.findViewById(R.id.txt_Username)
-        private val txtBirthDate: TextView = itemView.findViewById(R.id.txtBirthDateFriendListItem)
-        private val txtCapScore: TextView = itemView.findViewById(R.id.txtCapScoreListItemFriend)
+        private val txtId: TextView = itemView.findViewById(R.id.txtUserId_ListItemUser)
+        private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItemUser)
+        private val txtBirthDate: TextView = itemView.findViewById(R.id.txtBirthDate_ListItemUser)
+        private val txtCapScore: TextView = itemView.findViewById(R.id.txtCapScore_ListItemUser)
 
         fun bind(friend: UserDTO){
             this.friend = friend
@@ -76,7 +76,7 @@ class FriendListFragment : Fragment() {
 
     private inner class FriendAdapter(var users:List<UserDTO>) : RecyclerView.Adapter<FriendHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_friend, parent, false)
+            val view = layoutInflater.inflate(R.layout.list_item_user, parent, false)
             return FriendHolder(view)
         }
 
@@ -89,8 +89,8 @@ class FriendListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): FriendListFragment {
-            return FriendListFragment()
+        fun newInstance(): UserListFragment {
+            return UserListFragment()
         }
     }
 }

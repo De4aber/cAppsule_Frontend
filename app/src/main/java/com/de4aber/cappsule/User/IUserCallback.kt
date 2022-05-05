@@ -1,6 +1,6 @@
 package com.de4aber.cappsule.User
 
-interface ICallback {
+interface IUserCallback {
 
     fun onUsersReady(users: List<UserDTO>)
 }

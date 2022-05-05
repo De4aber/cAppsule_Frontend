@@ -15,7 +15,7 @@ class UserRepo {
 
     private val httpClient: AsyncHttpClient = AsyncHttpClient()
 
-    fun getAll(callback: ICallback){
+    fun getAll(userCallback: IUserCallback){
         httpClient.get("$url/GetAllDTOs", object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
@@ -24,7 +24,7 @@ class UserRepo {
             ) {
                 val users = getUsersFromString( String(responseBody!!) )
                 Log.d(TAG, "Users received - ${users.size}")
-                callback.onUsersReady( users )
+                userCallback.onUsersReady( users )
             }
 
             override fun onFailure(

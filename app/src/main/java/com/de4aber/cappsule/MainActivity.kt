@@ -43,5 +43,7 @@ class MainActivity : AppCompatActivity() {
         }        catch (e: GeneralSecurityException){
             throw Exception("Key is most-likely not generated \n $e")
         }
+
+
     }
 }
