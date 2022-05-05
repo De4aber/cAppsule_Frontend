@@ -18,13 +18,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
         btnSignUp.setOnClickListener{onClickSignUp()}
         btnLogin.setOnClickListener { onClickLogin() }
+        und.setOnClickListener{onClickUndskyld()}
     }
 
     private fun onClickSignUp() {
         val intent = Intent(this, SignUpActivity::class.java)
+        startActivity(intent);
+    }
+
+    private fun onClickUndskyld(){
+        val intent = Intent(this, FriendActivity::class.java)
         startActivity(intent);
     }
 
