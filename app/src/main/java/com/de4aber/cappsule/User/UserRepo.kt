@@ -9,7 +9,7 @@ import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONException
 
-private const val TAG ="SampleRepo"
+private const val TAG ="UserRepo"
 class UserRepo {
 
     private val url = "http://185.51.76.204:8091/User"
