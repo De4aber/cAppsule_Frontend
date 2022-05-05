@@ -45,32 +45,36 @@ class FriendListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sampleRepo.getAll(object : ICallback{
-            override fun onUsersReady(users: List<BEUser>) {
+            override fun onUsersReady(users: List<UserDTO>) {
                 updateUI(users)
             }
         })
     }
 
-    fun updateUI(friends: List<BEUser>){
+    fun updateUI(friends: List<UserDTO>){
         adapter = FriendAdapter(friends)
         friendRecyclerView.adapter = adapter
     }
 
     private inner class FriendHolder(view: View)
         : RecyclerView.ViewHolder(view){
-        private lateinit var friend: BEUser
+        private lateinit var friend: UserDTO
         private val txtId: TextView = itemView.findViewById(R.id.txt_UserId)
         private val txtUsername: TextView = itemView.findViewById(R.id.txt_Username)
+        private val txtBirthDate: TextView = itemView.findViewById(R.id.txtBirthDateFriendListItem)
+        private val txtCapScore: TextView = itemView.findViewById(R.id.txtCapScoreListItemFriend)
 
-        fun bind(friend: BEUser){
+        fun bind(friend: UserDTO){
             this.friend = friend
             txtId.text =  this.friend.id.toString()
-            txtUsername.text = this.friend.name
+            txtUsername.text = this.friend.username
+            txtBirthDate.text = this.friend.birthdate
+            txtCapScore.text = this.friend.CapScore.toString()
         }
 
     }
 
-    private inner class FriendAdapter(var users:List<BEUser>) : RecyclerView.Adapter<FriendHolder>() {
+    private inner class FriendAdapter(var users:List<UserDTO>) : RecyclerView.Adapter<FriendHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
             val view = layoutInflater.inflate(R.layout.list_item_friend, parent, false)
             return FriendHolder(view)

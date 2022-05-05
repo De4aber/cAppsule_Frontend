@@ -3,7 +3,6 @@ package com.de4aber.cappsule.User
 import android.util.Log
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
-import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
@@ -17,7 +16,7 @@ class UserRepo {
     private val httpClient: AsyncHttpClient = AsyncHttpClient()
 
     fun getAll(callback: ICallback){
-        httpClient.get(url, object : AsyncHttpResponseHandler() {
+        httpClient.get("$url/GetAllDTOs", object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
                 headers: Array<out Header>?,
@@ -40,9 +39,9 @@ class UserRepo {
         })
     }
 
-    fun createUser(user: BEUser) {
+    fun createUser(userDTO: UserDTO) {
         val params = RequestParams()
-        params.put("username", user.name)
+        params.put("username", userDTO.username)
 
         httpClient.post("$url/CreateUser", params, object : AsyncHttpResponseHandler() {
 
@@ -68,8 +67,8 @@ class UserRepo {
 
     }
 
-    private fun getUsersFromString(jsonString: String?): List<BEUser> {
-        val result = ArrayList<BEUser>()
+    private fun getUsersFromString(jsonString: String?): List<UserDTO> {
+        val result = ArrayList<UserDTO>()
 
         if (jsonString!!.startsWith("error")) {
             Log.d(TAG, "Error: $jsonString")
@@ -83,7 +82,7 @@ class UserRepo {
         try {
             array = JSONArray(jsonString)
             for (i in 0 until array.length()) {
-                result.add(BEUser(array.getJSONObject(i)))
+                result.add(UserDTO(array.getJSONObject(i)))
             }
 
         } catch (e: JSONException) {
