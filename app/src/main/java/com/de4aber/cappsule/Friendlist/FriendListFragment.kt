@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -58,6 +59,7 @@ class FriendListFragment : Fragment() {
         : RecyclerView.ViewHolder(view){
         private lateinit var friend: FriendDTO
         private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItemFriend)
+
 
         fun bind(friend: FriendDTO){
             this.friend = friend

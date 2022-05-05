@@ -40,7 +40,7 @@
             app:srcCompat="@drawable/plus" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/imgBtnThreeDots_ListItemFriend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

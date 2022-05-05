@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.de4aber.cappsule.User.UserActivity
 import com.de4aber.cappsule.Utility.SecurityHelper
 import com.scottyab.aescrypt.AESCrypt
 import kotlinx.android.synthetic.main.activity_login.*
@@ -29,11 +30,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickUndskyld(){
-        val intent = Intent(this, FriendActivity::class.java)
+        val intent = Intent(this, UserActivity::class.java)
         startActivity(intent);
     }
 
     private fun onClickLogin() {
+
         val plainPW = editTextTextPassword.text.toString()
         val username = editTextTextPersonName.text.toString()
         val key = securityHelper.getEncryptionKey()

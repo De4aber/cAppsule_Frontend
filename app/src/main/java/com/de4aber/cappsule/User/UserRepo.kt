@@ -1,12 +1,14 @@
 package com.de4aber.cappsule.User
 
 import android.util.Log
+import com.de4aber.cappsule.Friend.FriendDTO
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 
 private const val TAG ="UserRepo"
 class UserRepo {
@@ -37,6 +39,32 @@ class UserRepo {
             }
 
         })
+    }
+
+    fun getUserById(getUserFromId: IGetUserFromId, id:Int){
+        httpClient.get("$url/$id", object : AsyncHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                getUserFromId.onUserReady(UserDTO(JSONObject(String(responseBody!!))))
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in getAll statusCode = $statusCode")
+            }
+
+        })
+    }
+
+    interface IGetUserFromId{
+        fun onUserReady(user: UserDTO)
     }
 
     fun createUser(userDTO: UserDTO) {
@@ -90,4 +118,6 @@ class UserRepo {
         }
         return result
     }
+
+
 }

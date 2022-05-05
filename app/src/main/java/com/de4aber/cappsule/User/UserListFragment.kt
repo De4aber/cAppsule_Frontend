@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.de4aber.cappsule.FriendActivity
+import com.de4aber.cappsule.LoginViewModel
 import com.de4aber.cappsule.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,9 +26,14 @@ private const val ARG_PARAM2 = "param2"
  */
 class UserListFragment : Fragment() {
     //region Variables and Values
+
+
     val sampleRepo = UserRepo()
     private var adapter: FriendAdapter? = null
     private lateinit var friendRecyclerView: RecyclerView
+    private val loginViewModel :LoginViewModel by lazy {
+        ViewModelProvider(this).get(LoginViewModel::class.java)
+    }
 
     //endregion
     override fun onCreateView(
@@ -56,33 +65,56 @@ class UserListFragment : Fragment() {
         friendRecyclerView.adapter = adapter
     }
 
-    private inner class FriendHolder(view: View)
+
+
+    private inner class UserHolder(view: View)
         : RecyclerView.ViewHolder(view){
-        private lateinit var friend: UserDTO
+        private lateinit var user: UserDTO
         private val txtId: TextView = itemView.findViewById(R.id.txtUserId_ListItemUser)
         private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItemUser)
         private val txtBirthDate: TextView = itemView.findViewById(R.id.txtBirthDate_ListItemUser)
         private val txtCapScore: TextView = itemView.findViewById(R.id.txtCapScore_ListItemUser)
 
+
         fun bind(friend: UserDTO){
-            this.friend = friend
-            txtId.text =  this.friend.id.toString()
-            txtUsername.text = this.friend.username
-            txtBirthDate.text = this.friend.birthdate
-            txtCapScore.text = this.friend.CapScore.toString()
+            this.user = friend
+            txtId.text =  this.user.id.toString()
+            txtUsername.text = this.user.username
+            txtBirthDate.text = this.user.birthdate
+            txtCapScore.text = this.user.CapScore.toString()
+            itemView.setOnClickListener { onClick() }
+        }
+         fun onClick() {
+
+
+            loginViewModel.userRepo.getUserById(object:UserRepo.IGetUserFromId{
+                override fun onUserReady(user: UserDTO) {
+                    val intent = FriendActivity.newIntent(requireContext(), user)
+                    startActivity(intent);
+                }
+            }, user.id)
+
+
+
+            //Toast.makeText(context, user.username, Toast.LENGTH_SHORT).show()
+
+
         }
 
     }
 
-    private inner class FriendAdapter(var users:List<UserDTO>) : RecyclerView.Adapter<FriendHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
+    private inner class FriendAdapter(var users:List<UserDTO>) : RecyclerView.Adapter<UserHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
             val view = layoutInflater.inflate(R.layout.list_item_user, parent, false)
-            return FriendHolder(view)
+            return UserHolder(view)
         }
 
-        override fun onBindViewHolder(holder: FriendHolder, position: Int) {
+
+
+        override fun onBindViewHolder(holder: UserHolder, position: Int) {
             val friend = users[position]
             holder.bind(friend)
+
         }
 
         override fun getItemCount(): Int = users.size
