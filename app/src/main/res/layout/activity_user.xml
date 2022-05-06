@@ -12,7 +12,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentFriendList"
-        android:name="com.de4aber.cappsule.User.FriendListFragment"
+        android:name="com.de4aber.cappsule.User.UserListFragment"
         android:layout_width="362dp"
         android:layout_height="603dp"
         android:layout_marginBottom="42dp"

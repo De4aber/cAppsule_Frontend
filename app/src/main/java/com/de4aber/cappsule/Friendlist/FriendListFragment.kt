@@ -1,4 +1,4 @@
-package com.de4aber.cappsule.User
+package com.de4aber.cappsule.Friendlist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.de4aber.cappsule.Friend.FriendDTO
+import com.de4aber.cappsule.Friend.IFriendCallback
 import com.de4aber.cappsule.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.de4aber.cappsule.User.LoggedUserViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -22,9 +21,13 @@ private const val ARG_PARAM2 = "param2"
  */
 class FriendListFragment : Fragment() {
     //region Variables and Values
-    val sampleRepo = UserRepo()
+
     private var adapter: FriendAdapter? = null
     private lateinit var friendRecyclerView: RecyclerView
+
+    private val loggedUserViewModel : LoggedUserViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(LoggedUserViewModel::class.java)
+    }
 
     //endregion
     override fun onCreateView(
@@ -44,44 +47,43 @@ class FriendListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sampleRepo.getAll(object : ICallback{
-            override fun onUsersReady(users: List<BEUser>) {
-                updateUI(users)
+        loggedUserViewModel.friendRepository.getFriendsByUserId(object : IFriendCallback{
+            override fun onFriendsReady(friends: List<FriendDTO>) {
+                updateUI(friends)
             }
-        })
+        },loggedUserViewModel.loggedUser.id)
     }
 
-    fun updateUI(friends: List<BEUser>){
+    fun updateUI(friends: List<FriendDTO>){
         adapter = FriendAdapter(friends)
         friendRecyclerView.adapter = adapter
     }
 
     private inner class FriendHolder(view: View)
         : RecyclerView.ViewHolder(view){
-        private lateinit var friend: BEUser
-        private val txtId: TextView = itemView.findViewById(R.id.txt_UserId)
-        private val txtUsername: TextView = itemView.findViewById(R.id.txt_Username)
+        private lateinit var friend: FriendDTO
+        private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItemFriend)
 
-        fun bind(friend: BEUser){
+
+        fun bind(friend: FriendDTO){
             this.friend = friend
-            txtId.text =  this.friend.id.toString()
-            txtUsername.text = this.friend.name
+            txtUsername.text = this.friend.username
         }
 
     }
 
-    private inner class FriendAdapter(var users:List<BEUser>) : RecyclerView.Adapter<FriendHolder>() {
+    private inner class FriendAdapter(var friends:List<FriendDTO>) : RecyclerView.Adapter<FriendHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
             val view = layoutInflater.inflate(R.layout.list_item_friend, parent, false)
             return FriendHolder(view)
         }
 
         override fun onBindViewHolder(holder: FriendHolder, position: Int) {
-            val friend = users[position]
+            val friend = friends[position]
             holder.bind(friend)
         }
 
-        override fun getItemCount(): Int = users.size
+        override fun getItemCount(): Int = friends.size
     }
 
     companion object {

@@ -1,13 +1,14 @@
 package com.de4aber.cappsule.User
 
 import android.util.Log
+import com.de4aber.cappsule.Friend.FriendDTO
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
-import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 
 private const val TAG ="UserRepo"
 class UserRepo {
@@ -16,8 +17,8 @@ class UserRepo {
 
     private val httpClient: AsyncHttpClient = AsyncHttpClient()
 
-    fun getAll(callback: ICallback){
-        httpClient.get(url, object : AsyncHttpResponseHandler() {
+    fun getAll(userCallback: IUserCallback){
+        httpClient.get("$url/GetAllDTOs", object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
                 headers: Array<out Header>?,
@@ -25,7 +26,7 @@ class UserRepo {
             ) {
                 val users = getUsersFromString( String(responseBody!!) )
                 Log.d(TAG, "Users received - ${users.size}")
-                callback.onUsersReady( users )
+                userCallback.onUsersReady( users )
             }
 
             override fun onFailure(
@@ -40,9 +41,35 @@ class UserRepo {
         })
     }
 
-    fun createUser(user: BEUser) {
+    fun getUserById(getUserFromId: IGetUserFromId, id:Int){
+        httpClient.get("$url/$id", object : AsyncHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                getUserFromId.onUserReady(UserDTO(JSONObject(String(responseBody!!))))
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in getAll statusCode = $statusCode")
+            }
+
+        })
+    }
+
+    interface IGetUserFromId{
+        fun onUserReady(user: UserDTO)
+    }
+
+    fun createUser(userDTO: UserDTO) {
         val params = RequestParams()
-        params.put("username", user.name)
+        params.put("username", userDTO.username)
 
         httpClient.post("$url/CreateUser", params, object : AsyncHttpResponseHandler() {
 
@@ -68,8 +95,8 @@ class UserRepo {
 
     }
 
-    private fun getUsersFromString(jsonString: String?): List<BEUser> {
-        val result = ArrayList<BEUser>()
+    private fun getUsersFromString(jsonString: String?): List<UserDTO> {
+        val result = ArrayList<UserDTO>()
 
         if (jsonString!!.startsWith("error")) {
             Log.d(TAG, "Error: $jsonString")
@@ -83,7 +110,7 @@ class UserRepo {
         try {
             array = JSONArray(jsonString)
             for (i in 0 until array.length()) {
-                result.add(BEUser(array.getJSONObject(i)))
+                result.add(UserDTO(array.getJSONObject(i)))
             }
 
         } catch (e: JSONException) {
@@ -91,4 +118,6 @@ class UserRepo {
         }
         return result
     }
+
+
 }
