@@ -2,4 +2,5 @@
     <string name="app_name">cAppsule</string>
     <string name="take_photo">Take new photo</string>
     <string name="header">Select a location</string>
+    <string name="title_activity_add_location">AddLocationActivity</string>
 </resources>
