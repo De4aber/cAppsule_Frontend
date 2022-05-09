@@ -27,8 +27,7 @@ class AddLocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val TAG = "xyz"
 
-    private val EASV = LatLng(55.488230, 8.446936)
-    private val ROUND = LatLng(55.473939, 8.435959)
+    private var selectedLocation = LatLng(0.0, 0.0)
 
     private lateinit var mMap: GoogleMap
 
@@ -49,8 +48,6 @@ class AddLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         //Initialize fused location
         client = LocationServices.getFusedLocationProviderClient(this)
 
-
-        //ZoomOnCurrentLocation()
 
     }
 
@@ -93,7 +90,7 @@ class AddLocationActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val easvOptions = MarkerOptions().position(EASV).title("EASV")
+        /*val easvOptions = MarkerOptions().position(EASV).title("EASV")
 
         val roundAboutOptions = MarkerOptions().position(ROUND).title("Round-about")
         val easvMarker = mMap.addMarker(easvOptions)
@@ -105,9 +102,18 @@ class AddLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                     Log.d(TAG, "EASV is clicked...")
                 return false
             }
-        })
-
+        })*/
         setupZoomlevels()
+        createPoint()
+    }
+
+    private fun createPoint(){
+        mMap.setOnMapClickListener {
+            mMap.clear()
+            selectedLocation = it
+            mMap.addMarker(MarkerOptions().position(selectedLocation).title("location"))
+            Log.d(TAG, selectedLocation.toString())
+        }
     }
 
     private fun setupZoomlevels() {
