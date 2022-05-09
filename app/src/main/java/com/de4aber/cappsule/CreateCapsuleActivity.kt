@@ -12,12 +12,14 @@ import com.de4aber.cappsule.Utility.AddLocationFragmentThing
 import com.de4aber.cappsule.Utility.BECapsuleText
 import com.de4aber.cappsule.Utility.BEFriend
 import com.de4aber.cappsule.Utility.FriendListTemp
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_create_capsule.*
 
 class CreateCapsuleActivity : AppCompatActivity() {
     var friends = FriendListTemp()
     private val TAG = "xyz"
     private lateinit var pictureUri: String
+    private lateinit var location: LatLng
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +46,14 @@ class CreateCapsuleActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                pictureUri = (it.data?.getSerializableExtra("picture") as String?).toString()
-                val uri: Uri = Uri.parse(pictureUri)
-                imgPhoto.setImageURI(uri)
+                if(it.data?.getSerializableExtra("picture") != null){
+                    pictureUri = (it.data?.getSerializableExtra("picture") as String?).toString()
+                    val uri: Uri = Uri.parse(pictureUri)
+                    imgPhoto.setImageURI(uri)
+                }
+                if(it.data?.getSerializableExtra("location") != null){
+                    location = (it.data?.getSerializableExtra("location") as LatLng)
+                }
             }
         }
 

@@ -1,5 +1,7 @@
 package com.de4aber.cappsule
 
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -48,7 +50,6 @@ class AddLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         //Initialize fused location
         client = LocationServices.getFusedLocationProviderClient(this)
 
-
     }
 
     private fun ZoomOnCurrentLocation(coords: LatLng) {
@@ -84,25 +85,14 @@ class AddLocationActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun Save() {
-        TODO("Not yet implemented")
+        val data = Intent().apply { putExtra("location", selectedLocation) }
+        setResult(Activity.RESULT_OK, data)
+        finish()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        /*val easvOptions = MarkerOptions().position(EASV).title("EASV")
-
-        val roundAboutOptions = MarkerOptions().position(ROUND).title("Round-about")
-        val easvMarker = mMap.addMarker(easvOptions)
-        mMap.addMarker(roundAboutOptions)
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(EASV))
-        mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
-            override fun onMarkerClick(marker: Marker): Boolean {
-                if (marker.equals(easvMarker))
-                    Log.d(TAG, "EASV is clicked...")
-                return false
-            }
-        })*/
         setupZoomlevels()
         createPoint()
     }
