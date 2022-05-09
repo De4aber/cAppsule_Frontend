@@ -35,6 +35,16 @@
         android:layout_alignLeft="@+id/map"
         android:text="Back" />
 
+    <Button
+        android:id="@+id/btnLocationZoomCurrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/map"
+        android:layout_alignRight="@+id/btnLocationBack"
+
+        android:layout_marginTop="70dp"
+        android:text="Zoom to current location" />
+
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
