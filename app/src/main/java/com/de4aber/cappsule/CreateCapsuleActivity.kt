@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.SimpleAdapter
 import androidx.activity.result.contract.ActivityResultContracts
+import com.de4aber.cappsule.Utility.AddLocationFragmentThing
 import com.de4aber.cappsule.Utility.BECapsuleText
 import com.de4aber.cappsule.Utility.BEFriend
 import com.de4aber.cappsule.Utility.FriendListTemp

@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".AddLocationActivity">
 
     <TextView
@@ -11,15 +12,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"/>
+
     <Button
         android:id="@+id/btnSaveLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/map"
         android:layout_alignRight="@+id/map"
-        android:text="Save"
-        android:onClick="onClickSave"/>
+        android:text="Save" />
 
     <Button
         android:id="@+id/btnLocationBack"
@@ -27,8 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/map"
         android:layout_alignLeft="@+id/map"
-        android:text="Back"
-        android:onClick="onClickBack"/>
+        android:text="Back" />
 
     <Spinner
         android:layout_width="wrap_content"
