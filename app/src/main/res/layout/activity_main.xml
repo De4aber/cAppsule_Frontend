@@ -20,7 +20,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="406dp"
+        android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
@@ -44,29 +44,30 @@
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:background="#00FFFFFF"
             android:src="@drawable/ic_map_icon"
-            android:layout_gravity="center"
-            app:tint="#577C8C"/>
+            app:tint="#577C8C" />
 
         <ImageButton
             android:id="@+id/friends"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:background="#00FFFFFF"
             android:src="@drawable/ic_friends_icon"
-            android:layout_gravity="center"/>
+            app:tint="#577C8C" />
 
         <ImageButton
             android:id="@+id/cappsule"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:background="#00FFFFFF"
             android:src="@drawable/ic_capsule_icon"
-            app:tint="#577C8C"
-            android:layout_gravity="center"/>
+            app:tint="#577C8C" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
