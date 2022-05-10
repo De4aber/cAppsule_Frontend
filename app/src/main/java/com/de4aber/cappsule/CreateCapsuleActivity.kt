@@ -19,7 +19,8 @@ class CreateCapsuleActivity : AppCompatActivity() {
     var friends = FriendListTemp()
     private val TAG = "xyz"
     private lateinit var pictureUri: String
-    private lateinit var location: LatLng
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +52,10 @@ class CreateCapsuleActivity : AppCompatActivity() {
                     val uri: Uri = Uri.parse(pictureUri)
                     imgPhoto.setImageURI(uri)
                 }
-                if(it.data?.getSerializableExtra("location") != null){
-                    location = (it.data?.getSerializableExtra("location") as LatLng)
+                if(it.data?.getSerializableExtra("longitude") != null && it.data?.getSerializableExtra("latitude") != null){
+                    latitude = (it.data?.getSerializableExtra("latitude") as Double)
+                    longitude = (it.data?.getSerializableExtra("longitude") as Double)
+                    Log.d(TAG, "${latitude}.${longitude} VIRKER DETTT!?!?!?")
                 }
             }
         }
@@ -69,8 +72,9 @@ class CreateCapsuleActivity : AppCompatActivity() {
         if(this::pictureUri.isInitialized){
             capsule.pictureUri = pictureUri
         }
-        capsule.latitude = location.latitude
-        capsule.longtitude = location.longitude
+        capsule.latitude = latitude
+        capsule.longitude = longitude
+        Log.d(TAG, "${capsule.latitude}.${capsule.longitude} HER VIRKER DET IKKE TROR JEGGG!")
         Log.d(TAG, capsule.toString())
     }
 

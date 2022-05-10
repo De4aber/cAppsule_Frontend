@@ -30,6 +30,8 @@ class AddLocationActivity : AppCompatActivity(), OnMapReadyCallback {
     private val TAG = "xyz"
 
     private var selectedLocation = LatLng(0.0, 0.0)
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
     private lateinit var mMap: GoogleMap
 
@@ -85,7 +87,10 @@ class AddLocationActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun Save() {
-        val data = Intent().apply { putExtra("location", selectedLocation) }
+        val data = Intent().apply {
+            putExtra("latitude", latitude)
+            putExtra("longitude", longitude)
+        }
         setResult(Activity.RESULT_OK, data)
         finish()
     }
@@ -101,7 +106,9 @@ class AddLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.setOnMapClickListener {
             mMap.clear()
             selectedLocation = it
-            mMap.addMarker(MarkerOptions().position(selectedLocation).title("location"))
+            longitude = selectedLocation.longitude
+            latitude = selectedLocation.latitude
+            mMap.addMarker(MarkerOptions().position(selectedLocation).title("Selected location"))
             Log.d(TAG, selectedLocation.toString())
         }
     }

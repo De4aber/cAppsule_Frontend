@@ -36,6 +36,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onClickLogin() {
 
+        val intent = Intent(this, CreateCapsuleActivity::class.java)
+        startActivity(intent);
         val plainPW = editTextTextPassword.text.toString()
         val username = editTextTextPersonName.text.toString()
         val key = securityHelper.getEncryptionKey()
