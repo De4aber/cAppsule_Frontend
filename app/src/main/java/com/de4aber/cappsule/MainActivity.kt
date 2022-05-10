@@ -2,6 +2,7 @@ package com.de4aber.cappsule
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -42,12 +43,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickCapsule() {
+        home.setColorFilter(Color.rgb(87, 124, 140))
+        map.setColorFilter(Color.rgb(87, 124, 140))
+        friends.setColorFilter(Color.rgb(87, 124, 140))
+        cappsule.setColorFilter(Color.rgb(100, 198, 192))
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragShowing, CapsuleSegmentFragment.newInstance())
             .commit()
     }
 
     private fun onClickMap() {
+        home.setColorFilter(Color.rgb(87, 124, 140))
+        map.setColorFilter(Color.rgb(100, 198, 192))
+        friends.setColorFilter(Color.rgb(87, 124, 140))
+        cappsule.setColorFilter(Color.rgb(87, 124, 140))
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragShowing, MapSegmentFragment.newInstance())
             .commit()
@@ -56,12 +65,20 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun onClickFriend() {
+        home.setColorFilter(Color.rgb(87, 124, 140))
+        map.setColorFilter(Color.rgb(87, 124, 140))
+        friends.setColorFilter(Color.rgb(100, 198, 192))
+        cappsule.setColorFilter(Color.rgb(87, 124, 140))
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragShowing, FriendSegmentFragment.newInstance())
             .commit()
     }
 
     private fun onClickHome() {
+        home.setColorFilter(Color.rgb(100, 198, 192))
+        map.setColorFilter(Color.rgb(87, 124, 140))
+        friends.setColorFilter(Color.rgb(87, 124, 140))
+        cappsule.setColorFilter(Color.rgb(87, 124, 140))
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragShowing, HomeSegmentFragment.newInstance())
             .commit()

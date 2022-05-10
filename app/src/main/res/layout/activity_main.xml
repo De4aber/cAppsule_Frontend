@@ -54,10 +54,11 @@
             android:id="@+id/friends"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:background="#00FFFFFF"
             android:src="@drawable/ic_friends_icon"
-            android:layout_gravity="center"/>
+            app:tint="#577C8C" />
 
         <ImageButton
             android:id="@+id/cappsule"

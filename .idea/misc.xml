@@ -24,7 +24,16 @@
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/user_fragment.xml" value="0.1" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/drawable/test.xml" value="0.321" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_login.xml" value="0.5" />
-        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_main.xml" value="0.3473731884057971" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_register.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_user.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_capsule_segment.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_home_segment.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_map_segment.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_user_list.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/list_item_friend.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/list_item_user.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/user_fragment.xml" value="0.12407407407407407" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1935" />
       </map>
     </option>
