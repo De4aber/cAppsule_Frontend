@@ -8,7 +8,7 @@
     android:scaleType="centerCrop"
     tools:layout_editor_absoluteX="-8dp"
     tools:layout_editor_absoluteY="0dp"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/Logo"
