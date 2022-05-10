@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 map.setOnClickListener { onClickMap() }
                 friends.setOnClickListener { onClickFriend() }
                 cappsule.setOnClickListener { onClickCapsule() }
+                home.setColorFilter(Color.rgb(100, 198, 192))
             }
         }, userId)
         window.decorView.apply {systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) }
+
     }
 
     private fun onClickCapsule() {
