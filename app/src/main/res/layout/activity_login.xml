@@ -8,7 +8,7 @@
     android:scaleType="centerCrop"
     tools:layout_editor_absoluteX="-8dp"
     tools:layout_editor_absoluteY="0dp"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/Logo"
@@ -110,5 +110,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/und"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="undskyld mig selv"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="53dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

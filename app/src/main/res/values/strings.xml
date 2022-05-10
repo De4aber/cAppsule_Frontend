@@ -3,4 +3,6 @@
     <string name="take_photo">Take new photo</string>
     <string name="header">Select a location</string>
     <string name="title_activity_add_location">AddLocationActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
