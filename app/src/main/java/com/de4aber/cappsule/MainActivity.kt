@@ -53,21 +53,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    private fun onClickLogin() {
-        val plainPW = editTextTextPassword.text.toString()
-        val username = editTextTextPersonName.text.toString()
-        val key = securityHelper.getEncryptionKey()
-        try {
-            val encryptedPassword = AESCrypt.encrypt(key, plainPW)
-            Log.d("TAG", "ENCRYPTED PASSWORD: $encryptedPassword")
-            val intent = Intent(this, CreateCapsuleActivity::class.java)
-            startActivity(intent);
-        }        catch (e: GeneralSecurityException){
-            throw Exception("Key is most-likely not generated \n $e")
-        }
-    }
-
-
     private fun onClickFriend() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragShowing, FriendSegmentFragment.newInstance())

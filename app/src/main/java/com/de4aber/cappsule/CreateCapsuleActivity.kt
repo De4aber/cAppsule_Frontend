@@ -69,6 +69,8 @@ class CreateCapsuleActivity : AppCompatActivity() {
         if(this::pictureUri.isInitialized){
             capsule.pictureUri = pictureUri
         }
+        capsule.latitude = location.latitude
+        capsule.longtitude = location.longitude
         Log.d(TAG, capsule.toString())
     }
 
