@@ -7,9 +7,11 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.de4aber.cappsule.Friendlist.FriendListFragment
 import com.de4aber.cappsule.Friendlist.FriendSegmentFragment
+import com.de4aber.cappsule.Home.HomeSegmentFragment
 import com.de4aber.cappsule.User.LoggedUserViewModel
 import com.de4aber.cappsule.User.UserDTO
 import com.de4aber.cappsule.User.UserRepo
+import kotlinx.android.synthetic.main.activity_main.*
 
 private const val EXTRA_USERID = "com.de4aber.cappsule.MainActivity.user_id"
 
@@ -23,18 +25,48 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         userId = intent.getIntExtra(EXTRA_USERID, -1)
-
         loggedUserViewModel.userRepo.getUserById(object: UserRepo.IGetUserFromId{
             override fun onUserReady(user: UserDTO) {
                 loggedUserViewModel.loggedUser = user
                 setContentView(R.layout.activity_main)
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.fragShowing, FriendSegmentFragment()).commit()
+                    .add(R.id.fragShowing, HomeSegmentFragment.newInstance()).commit()
+
+                home.setOnClickListener { onClickHome() }
+                map.setOnClickListener { onClickMap() }
+                friends.setOnClickListener { onClickFriend() }
+                cappsule.setOnClickListener { onClickCapsule() }
             }
         }, userId)
     }
+
+    private fun onClickCapsule() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragShowing, CapsuleSegmentFragment.newInstance())
+            .commit()
+    }
+
+    private fun onClickMap() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragShowing, MapSegmentFragment.newInstance())
+            .commit()
+    }
+
+
+
+    private fun onClickFriend() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragShowing, FriendSegmentFragment.newInstance())
+            .commit()
+    }
+
+    private fun onClickHome() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragShowing, HomeSegmentFragment.newInstance())
+            .commit()
+    }
+
 
     companion object{
         fun newIntent(packageContext: Context, loggedUserId: Int): Intent {
