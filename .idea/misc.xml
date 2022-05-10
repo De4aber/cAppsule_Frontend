@@ -29,9 +29,9 @@
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_user.xml" value="0.5" />
-        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_capsule_segment.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_capsule_segment.xml" value="0.25" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_friend_list.xml" value="0.13703703703703704" />
-        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_friend_segment.xml" value="0.33" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_friend_segment.xml" value="0.22" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_home_segment.xml" value="0.33" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_map_segment.xml" value="0.12407407407407407" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_user_list.xml" value="0.12407407407407407" />
