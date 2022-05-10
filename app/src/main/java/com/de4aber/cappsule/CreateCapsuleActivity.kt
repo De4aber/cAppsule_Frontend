@@ -8,11 +8,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.SimpleAdapter
 import androidx.activity.result.contract.ActivityResultContracts
-import com.de4aber.cappsule.Utility.AddLocationFragmentThing
 import com.de4aber.cappsule.Utility.BECapsuleText
 import com.de4aber.cappsule.Utility.BEFriend
 import com.de4aber.cappsule.Utility.FriendListTemp
-import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_create_capsule.*
 
 class CreateCapsuleActivity : AppCompatActivity() {
@@ -55,26 +53,32 @@ class CreateCapsuleActivity : AppCompatActivity() {
                 if(it.data?.getSerializableExtra("longitude") != null && it.data?.getSerializableExtra("latitude") != null){
                     latitude = (it.data?.getSerializableExtra("latitude") as Double)
                     longitude = (it.data?.getSerializableExtra("longitude") as Double)
-                    Log.d(TAG, "${latitude}.${longitude} VIRKER DETTT!?!?!?")
                 }
             }
         }
 
     private fun onClickTest() {
-        var recievers = mutableListOf<BEFriend>(BEFriend("bent"))
-        var capsule = BECapsuleText(recievers)
+        //Set receivers
+        var receivers = mutableListOf<BEFriend>(BEFriend("bent"))
+        var capsule = BECapsuleText(receivers)
+        //Set text
+        capsule.message = editTextMessage.text.toString()
+        //Set time
         capsule.time = timePickerTime.currentHour.toString() + ":" + timePickerTime.currentMinute.toString()
+        //Set date
         var date = ""
         date = date + datePickerDate.dayOfMonth + "-"
         date = date + (datePickerDate.month + 1) + "-"
         date += datePickerDate.year
         capsule.date = date
+        //Set picture
         if(this::pictureUri.isInitialized){
             capsule.pictureUri = pictureUri
         }
+        //Set location
         capsule.latitude = latitude
         capsule.longitude = longitude
-        Log.d(TAG, "${capsule.latitude}.${capsule.longitude} HER VIRKER DET IKKE TROR JEGGG!")
+        //Print capsule
         Log.d(TAG, capsule.toString())
     }
 
