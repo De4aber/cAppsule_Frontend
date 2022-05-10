@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.de4aber.cappsule.FriendActivity
 import com.de4aber.cappsule.LoginViewModel
+import com.de4aber.cappsule.MainActivity
 import com.de4aber.cappsule.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -83,7 +82,7 @@ class UserListFragment : Fragment() {
             itemView.setOnClickListener { onClick() }
         }
          fun onClick() {
-             val intent = FriendActivity.newIntent(requireContext(), user.id)
+             val intent = MainActivity.newIntent(requireContext(), user.id)
              startActivity(intent);
             //Toast.makeText(context, user.username, Toast.LENGTH_SHORT).show()
         }

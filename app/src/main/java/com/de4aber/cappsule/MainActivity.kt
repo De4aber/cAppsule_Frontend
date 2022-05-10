@@ -1,51 +1,46 @@
 package com.de4aber.cappsule
 
-import android.R.attr.password
+import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.de4aber.cappsule.User.UserActivity
-import com.de4aber.cappsule.Utility.SecurityHelper
-import com.scottyab.aescrypt.AESCrypt
-import kotlinx.android.synthetic.main.activity_login.*
-import java.lang.Exception
-import java.security.GeneralSecurityException
+import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
+import com.de4aber.cappsule.Friendlist.FriendListFragment
+import com.de4aber.cappsule.Friendlist.FriendSegmentFragment
+import com.de4aber.cappsule.User.LoggedUserViewModel
+import com.de4aber.cappsule.User.UserDTO
+import com.de4aber.cappsule.User.UserRepo
 
+private const val EXTRA_USERID = "com.de4aber.cappsule.MainActivity.user_id"
 
 class MainActivity : AppCompatActivity() {
-    var securityHelper: SecurityHelper = SecurityHelper()
+
+    var userId: Int = -1
+
+    private val loggedUserViewModel : LoggedUserViewModel by lazy {
+        ViewModelProvider(this).get(LoggedUserViewModel()::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        btnSignUp.setOnClickListener{onClickSignUp()}
-        btnLogin.setOnClickListener { onClickLogin() }
-        und.setOnClickListener{onClickUndskyld()}
+
+        userId = intent.getIntExtra(EXTRA_USERID, -1)
+
+        loggedUserViewModel.userRepo.getUserById(object: UserRepo.IGetUserFromId{
+            override fun onUserReady(user: UserDTO) {
+                loggedUserViewModel.loggedUser = user
+                setContentView(R.layout.activity_main)
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragShowing, FriendSegmentFragment()).commit()
+            }
+        }, userId)
     }
 
-    private fun onClickSignUp() {
-        val intent = Intent(this, SignUpActivity::class.java)
-        startActivity(intent);
-    }
-
-    private fun onClickUndskyld(){
-        val intent = Intent(this, UserActivity::class.java)
-        startActivity(intent);
-    }
-
-    private fun onClickLogin() {
-
-        val plainPW = editTextTextPassword.text.toString()
-        val username = editTextTextPersonName.text.toString()
-        val key = securityHelper.getEncryptionKey()
-        try {
-            val encryptedPassword = AESCrypt.encrypt(key, plainPW)
-            Log.d("TAG", "ENCRYPTED PASSWORD: $encryptedPassword")
-        }        catch (e: GeneralSecurityException){
-            throw Exception("Key is most-likely not generated \n $e")
+    companion object{
+        fun newIntent(packageContext: Context, loggedUserId: Int): Intent {
+            return Intent(packageContext, MainActivity::class.java).apply {
+                putExtra(EXTRA_USERID, loggedUserId)
+            }
         }
-
-
     }
 }
