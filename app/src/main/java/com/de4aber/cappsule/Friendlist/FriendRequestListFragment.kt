@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.de4aber.cappsule.Friend.FriendDTO
 import com.de4aber.cappsule.Friend.FriendRequestReceiverDTO
+import com.de4aber.cappsule.Friend.IFriendRequestAcceptCallback
 import com.de4aber.cappsule.Friend.IFriendRequestCallback
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
@@ -58,11 +61,24 @@ class FriendRequestListFragment : Fragment() {
         : RecyclerView.ViewHolder(view){
         private lateinit var friend: FriendRequestReceiverDTO
         private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItemFriendRequest)
+        private val btnAcceptFriendRequest: Button = itemView.findViewById(R.id.btnAccept_friendRequest)
 
 
         fun bind(friend: FriendRequestReceiverDTO){
             this.friend = friend
             txtUsername.text = this.friend.UserRequesting
+            btnAcceptFriendRequest.setOnClickListener { onClickAcceptFriend()}
+        }
+
+        private fun onClickAcceptFriend() {
+
+            loggedUserViewModel.friendRepository.acceptFriendRequest(object :IFriendRequestAcceptCallback{
+                override fun onFriendAccepted(friendDTO: FriendDTO) {
+                    btnAcceptFriendRequest.text = "Accepted"
+                    btnAcceptFriendRequest.isEnabled = false
+                }
+            }, loggedUserViewModel.loggedUser.id, friend.id)
+
         }
 
     }

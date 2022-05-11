@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.de4aber.cappsule.R
+import kotlinx.android.synthetic.main.fragment_add_friend.*
 
 /**
  * A simple [Fragment] subclass.
@@ -24,6 +25,19 @@ class AddFriendFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_friend, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btnBack_addFriend.setOnClickListener { onClickBack() }
+    }
+
+    private fun onClickBack() {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragShowing, FriendSegmentFragment.newInstance())
+            .commit()
     }
 
     companion object {
