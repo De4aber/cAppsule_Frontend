@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.de4aber.cappsule">
 
-
     <uses-feature android:name="android.hardware.camera.any" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -13,12 +12,9 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:allowBackup="true"
@@ -28,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CAppsule.NoActionBar">
         <activity
-
+            android:name=".SeeCappsuleOnMapActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddLocationActivity"
             android:exported="false" />
         <!--
