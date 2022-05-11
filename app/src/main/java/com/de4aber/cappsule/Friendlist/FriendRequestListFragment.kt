@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.de4aber.cappsule.Friend.FriendDTO
 import com.de4aber.cappsule.Friend.FriendRequestReceiverDTO
-import com.de4aber.cappsule.Friend.IFriendRequestAcceptCallback
-import com.de4aber.cappsule.Friend.IFriendRequestCallback
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
 
@@ -45,11 +43,8 @@ class FriendRequestListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loggedUserViewModel.friendRepository.getFriendRequestByUserId(object : IFriendRequestCallback{
-            override fun onFriendRequestsReady(friends: List<FriendRequestReceiverDTO>) {
-                updateUI(friends)
-            }
-        },loggedUserViewModel.loggedUser.id)
+        loggedUserViewModel.getFriendRequests()
+            .observe(viewLifecycleOwner) { fr -> updateUI(fr) }
     }
 
     fun updateUI(friends: List<FriendRequestReceiverDTO>){
@@ -72,12 +67,12 @@ class FriendRequestListFragment : Fragment() {
 
         private fun onClickAcceptFriend() {
 
-            loggedUserViewModel.friendRepository.acceptFriendRequest(object :IFriendRequestAcceptCallback{
-                override fun onFriendAccepted(friendDTO: FriendDTO) {
-                    btnAcceptFriendRequest.text = "Accepted"
-                    btnAcceptFriendRequest.isEnabled = false
-                }
-            }, loggedUserViewModel.loggedUser.id, friend.id)
+            loggedUserViewModel.acceptFriendRequest(
+                friend.id
+            ).observe(viewLifecycleOwner) {
+                btnAcceptFriendRequest.text = "Accepted"
+                btnAcceptFriendRequest.isEnabled = false
+            }
 
         }
 

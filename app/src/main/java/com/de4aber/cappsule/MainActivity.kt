@@ -8,12 +8,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.de4aber.cappsule.Friendlist.FriendSegmentFragment
 import com.de4aber.cappsule.Home.HomeSegmentFragment
 import com.de4aber.cappsule.User.LoggedUserViewModel
-import com.de4aber.cappsule.User.UserDTO
-import com.de4aber.cappsule.User.UserRepo
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val EXTRA_USERID = "com.de4aber.cappsule.MainActivity.user_id"
@@ -29,20 +28,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userId = intent.getIntExtra(EXTRA_USERID, -1)
-        loggedUserViewModel.userRepo.getUserById(object: UserRepo.IGetUserFromId{
-            override fun onUserReady(user: UserDTO) {
-                loggedUserViewModel.loggedUser = user
-                setContentView(R.layout.activity_main)
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.fragShowing, HomeSegmentFragment.newInstance()).commit()
+        loggedUserViewModel.setUser(userId).observe(this, Observer { u->
+            loggedUserViewModel.loggedUser = u
+            setContentView(R.layout.activity_main)
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragShowing, HomeSegmentFragment.newInstance()).commit()
 
-                home.setOnClickListener { onClickHome() }
-                map.setOnClickListener { onClickMap() }
-                friends.setOnClickListener { onClickFriend() }
-                cappsule.setOnClickListener { onClickCapsule() }
-                home.setColorFilter(Color.rgb(100, 198, 192))
-            }
-        }, userId)
+            home.setOnClickListener { onClickHome() }
+            map.setOnClickListener { onClickMap() }
+            friends.setOnClickListener { onClickFriend() }
+            cappsule.setOnClickListener { onClickCapsule() }
+            home.setColorFilter(Color.rgb(100, 198, 192))
+        })
         window.decorView.apply {systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
