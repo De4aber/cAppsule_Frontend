@@ -3,9 +3,11 @@ package com.de4aber.cappsule.Friend
 import android.util.Log
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
+import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 
 private const val TAG ="FriendRepository"
 
@@ -58,6 +60,29 @@ class FriendRepository {
                 error: Throwable?
             ) {
                 Log.d(TAG, "failure in getAll statusCode = $statusCode")
+            }
+
+        })
+    }
+
+    fun acceptFriendRequest(friendRequestAcceptCallback: IFriendRequestAcceptCallback, userId: Int, friendshipId: Int){
+
+        httpClient.put("$url/AcceptFriendRequest?friendshipId=$friendshipId&acceptingUserId=$userId", object: AsyncHttpResponseHandler(){
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                friendRequestAcceptCallback.onFriendAccepted(FriendDTO(JSONObject(String(responseBody!!))))
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in AcceptFriendRequest statusCode = $statusCode")
             }
 
         })
