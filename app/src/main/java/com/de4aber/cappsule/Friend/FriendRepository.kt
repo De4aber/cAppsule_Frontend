@@ -22,7 +22,7 @@ class FriendRepository {
                 headers: Array<out Header>?,
                 responseBody: ByteArray?
             ) {
-                val friends = getFriendsFromString( String(responseBody!!) )
+                val friends = getFriendDTOsFromString( String(responseBody!!) )
                 Log.d(TAG, "Users received - ${friends.size}")
                 friendCallback.onFriendsReady(friends)
             }
@@ -39,7 +39,31 @@ class FriendRepository {
         })
     }
 
-    private fun getFriendsFromString(jsonString: String?): List<FriendDTO> {
+    fun getFriendRequestByUserId(friendRequestCallback: IFriendRequestCallback, userId: Int){
+        httpClient.get("$url/GetFriendRequestsByUserId/$userId", object : AsyncHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                val friends = getFriendsFromString( String(responseBody!!) )
+                Log.d(TAG, "Users received - ${friends.size}")
+                friendRequestCallback.onFriendRequestsReady(friends)
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in getAll statusCode = $statusCode")
+            }
+
+        })
+    }
+
+    private fun getFriendDTOsFromString(jsonString: String?): List<FriendDTO> {
         val result = ArrayList<FriendDTO>()
 
         if (jsonString!!.startsWith("error")) {
@@ -55,6 +79,30 @@ class FriendRepository {
             array = JSONArray(jsonString)
             for (i in 0 until array.length()) {
                 result.add(FriendDTO(array.getJSONObject(i)))
+            }
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return result
+    }
+
+    private fun getFriendsFromString(jsonString: String?): List<FriendRequestReceiverDTO> {
+        val result = ArrayList<FriendRequestReceiverDTO>()
+
+        if (jsonString!!.startsWith("error")) {
+            Log.d(TAG, "Error: $jsonString")
+            return result
+        }
+        if (jsonString == null) {
+            Log.d(TAG, "Error: NO RESULT")
+            return result
+        }
+        var array: JSONArray?
+        try {
+            array = JSONArray(jsonString)
+            for (i in 0 until array.length()) {
+                result.add(FriendRequestReceiverDTO(array.getJSONObject(i)))
             }
 
         } catch (e: JSONException) {
