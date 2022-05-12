@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
-import com.de4aber.cappsule.Friend.FriendDTO
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
 
@@ -17,9 +14,11 @@ import com.de4aber.cappsule.User.LoggedUserViewModel
  * Use the [FriendRequestFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+private const val ARG_PARAM_SEARCHSTRING = "searchstring"
 class FriendRequestFragment : Fragment() {
 
-
+    private var searchString: String? = null
 
     private val loggedUserViewModel : LoggedUserViewModel by lazy {
         ViewModelProvider(requireActivity()).get(LoggedUserViewModel::class.java)
@@ -27,7 +26,9 @@ class FriendRequestFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        arguments?.let {
+            searchString = it.getString(ARG_PARAM_SEARCHSTRING)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +54,11 @@ class FriendRequestFragment : Fragment() {
 
     companion object {
         fun newInstance(): FriendRequestFragment {
-            return FriendRequestFragment()
+            return FriendRequestFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM_SEARCHSTRING, searchString)
+                }
+            }
         }
     }
 }

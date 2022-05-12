@@ -10,13 +10,15 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.de4aber.cappsule.Friend.FriendRequestReceiverDTO
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
+import com.de4aber.cappsule.User.UserLimitedInfoDTO
 
-class FriendRequestListFragment : Fragment() {
+private const val ARG_PARAM_SEARCHSTRING = "searchstring"
+class UserSearchListFragment : Fragment() {
 
-    private var adapter: FriendAdapter? = null
+    private var searchString: String? = null
+    private var adapter: UserSearchAdapter? = null
     private lateinit var friendRecyclerView: RecyclerView
 
     private val loggedUserViewModel : LoggedUserViewModel by lazy {
@@ -25,6 +27,9 @@ class FriendRequestListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            searchString = it.getString(ARG_PARAM_SEARCHSTRING)
+        }
     }
 
     override fun onCreateView(
@@ -32,9 +37,9 @@ class FriendRequestListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_friend_request_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_user_search_list, container, false)
         friendRecyclerView=
-            view.findViewById(R.id.fragFriendRequestList_RecyclerView) as RecyclerView
+            view.findViewById(R.id.fragUserSeachList_RecyclerView) as RecyclerView
         friendRecyclerView.layoutManager = LinearLayoutManager(context)
 
         return view
@@ -42,44 +47,38 @@ class FriendRequestListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loggedUserViewModel.getFriendRequests()
+        loggedUserViewModel.getUsersBySearch()
             .observe(viewLifecycleOwner) { fr -> updateUI(fr) }
     }
 
-    fun updateUI(friends: List<FriendRequestReceiverDTO>){
-        adapter = FriendAdapter(friends)
+    fun updateUI(friends: List<UserLimitedInfoDTO>){
+        adapter = UserSearchAdapter(friends)
         friendRecyclerView.adapter = adapter
     }
 
     private inner class FriendHolder(view: View)
         : RecyclerView.ViewHolder(view){
-        private lateinit var friend: FriendRequestReceiverDTO
-        private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItemFriendRequest)
-        private val btnAcceptFriendRequest: Button = itemView.findViewById(R.id.btnAccept_friendRequest)
+        private lateinit var user: UserLimitedInfoDTO
+        private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItem_UserSearch)
+        private val btnAddUser: Button = itemView.findViewById(R.id.btnAdd_ListItem_UserSearch)
 
 
-        fun bind(friend: FriendRequestReceiverDTO){
-            this.friend = friend
-            txtUsername.text = this.friend.UserRequesting
-            btnAcceptFriendRequest.setOnClickListener { onClickAcceptFriend()}
+        fun bind(user: UserLimitedInfoDTO){
+            this.user = user
+            txtUsername.text = this.user.username
+            btnAddUser.setOnClickListener { onClickRequestUser()}
         }
 
-        private fun onClickAcceptFriend() {
+        private fun onClickRequestUser() {
 
-            loggedUserViewModel.acceptFriendRequest(
-                friend.id
-            ).observe(viewLifecycleOwner) {
-                btnAcceptFriendRequest.text = "Accepted"
-                btnAcceptFriendRequest.isEnabled = false
-            }
-
+            //TODO
         }
 
     }
 
-    private inner class FriendAdapter(var friends: List<FriendRequestReceiverDTO>) : RecyclerView.Adapter<FriendHolder>() {
+    private inner class UserSearchAdapter(var friends: List<UserLimitedInfoDTO>) : RecyclerView.Adapter<FriendHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_friendrequest, parent, false)
+            val view = layoutInflater.inflate(R.layout.list_item_user_search, parent, false)
             return FriendHolder(view)
         }
 
@@ -92,8 +91,12 @@ class FriendRequestListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): FriendRequestListFragment {
-                    return FriendRequestListFragment()
+        fun newInstance(search:String): UserSearchListFragment {
+            return UserSearchListFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM_SEARCHSTRING, search)
+                }
             }
+        }
     }
 }
