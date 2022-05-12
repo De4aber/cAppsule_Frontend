@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
+import com.de4aber.cappsule.User.SearchForUserIsFriendDTO
 import com.de4aber.cappsule.User.UserLimitedInfoDTO
 
 private const val ARG_PARAM_SEARCHSTRING = "searchstring"
@@ -47,25 +48,30 @@ class UserSearchListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loggedUserViewModel.getUsersBySearch()
+        loggedUserViewModel.getUsersBySearchIsFriends()
             .observe(viewLifecycleOwner) { fr -> updateUI(fr) }
     }
 
-    fun updateUI(friends: List<UserLimitedInfoDTO>){
+    fun updateUI(friends: List<SearchForUserIsFriendDTO>){
         adapter = UserSearchAdapter(friends)
         friendRecyclerView.adapter = adapter
     }
 
     private inner class FriendHolder(view: View)
         : RecyclerView.ViewHolder(view){
-        private lateinit var user: UserLimitedInfoDTO
+        private lateinit var user: SearchForUserIsFriendDTO
         private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItem_UserSearch)
         private val btnAddUser: Button = itemView.findViewById(R.id.btnAdd_ListItem_UserSearch)
 
 
-        fun bind(user: UserLimitedInfoDTO){
+        fun bind(user: SearchForUserIsFriendDTO){
             this.user = user
             txtUsername.text = this.user.username
+
+            if(user.isFriend){
+                btnAddUser.text = "Added"
+                btnAddUser.isEnabled = false
+            }
             btnAddUser.setOnClickListener { onClickRequestUser()}
         }
 
@@ -76,7 +82,7 @@ class UserSearchListFragment : Fragment() {
 
     }
 
-    private inner class UserSearchAdapter(var friends: List<UserLimitedInfoDTO>) : RecyclerView.Adapter<FriendHolder>() {
+    private inner class UserSearchAdapter(var friends: List<SearchForUserIsFriendDTO>) : RecyclerView.Adapter<FriendHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
             val view = layoutInflater.inflate(R.layout.list_item_user_search, parent, false)
             return FriendHolder(view)

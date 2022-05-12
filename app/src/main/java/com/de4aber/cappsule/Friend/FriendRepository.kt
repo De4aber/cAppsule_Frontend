@@ -3,6 +3,8 @@ package com.de4aber.cappsule.Friend
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.de4aber.cappsule.User.SearchForUserIsFriendDTO
+import com.de4aber.cappsule.User.UserLimitedInfoDTO
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestParams
@@ -116,6 +118,58 @@ class FriendRepository {
             array = JSONArray(jsonString)
             for (i in 0 until array.length()) {
                 result.add(FriendDTO(array.getJSONObject(i)))
+            }
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return result
+    }
+
+    public fun getUsersIsFriends(searchString: String, userId: Int): MutableLiveData<List<SearchForUserIsFriendDTO>> {
+        val response: MutableLiveData<List<SearchForUserIsFriendDTO>> = MutableLiveData()
+
+        httpClient.get("$url/SearchForUsernames_FilterIsFriends/$userId/$searchString", object :AsyncHttpResponseHandler(){
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                val users = getSearchForUserIsFriendDTOsFromString(String(responseBody!!))
+                Log.d(TAG, "Users received by search - ${users.size}")
+                response.value = users
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in getUsersIsFriends statusCode = $statusCode")
+            }
+
+        })
+
+        return response
+    }
+
+    private fun getSearchForUserIsFriendDTOsFromString(jsonString: String?): List<SearchForUserIsFriendDTO> {
+        val result = ArrayList<SearchForUserIsFriendDTO>()
+
+        if (jsonString!!.startsWith("error")) {
+            Log.d(TAG, "Error: $jsonString")
+            return result
+        }
+        if (jsonString == null) {
+            Log.d(TAG, "Error: NO RESULT")
+            return result
+        }
+        var array: JSONArray?
+        try {
+            array = JSONArray(jsonString)
+            for (i in 0 until array.length()) {
+                result.add(SearchForUserIsFriendDTO(array.getJSONObject(i)))
             }
 
         } catch (e: JSONException) {

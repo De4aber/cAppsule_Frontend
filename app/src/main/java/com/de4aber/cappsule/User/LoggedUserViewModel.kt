@@ -36,4 +36,8 @@ class LoggedUserViewModel():ViewModel() {
         return userRepo.searchUsersByUsername(searchwordUser)
     }
 
+    fun getUsersBySearchIsFriends(): MutableLiveData<List<SearchForUserIsFriendDTO>> {
+        return friendRepository.getUsersIsFriends(searchwordUser, loggedUser.id)
+    }
+
 }
