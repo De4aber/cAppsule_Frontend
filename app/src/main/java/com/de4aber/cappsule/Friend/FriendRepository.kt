@@ -1,6 +1,8 @@
 package com.de4aber.cappsule.Friend
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestParams
@@ -17,7 +19,9 @@ class FriendRepository {
 
     private val httpClient: AsyncHttpClient = AsyncHttpClient()
 
-    fun getFriendsByUserId(friendCallback: IFriendCallback, userId: Int){
+    fun getFriendsByUserId(userId: Int): LiveData<List<FriendDTO>>{
+        val response: MutableLiveData<List<FriendDTO>> = MutableLiveData()
+
         httpClient.get("$url/GetFriendsByUserId/$userId", object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
@@ -26,7 +30,7 @@ class FriendRepository {
             ) {
                 val friends = getFriendDTOsFromString( String(responseBody!!) )
                 Log.d(TAG, "Users received - ${friends.size}")
-                friendCallback.onFriendsReady(friends)
+                response.value = friends
             }
 
             override fun onFailure(
@@ -39,9 +43,12 @@ class FriendRepository {
             }
 
         })
+        return response
     }
 
-    fun getFriendRequestByUserId(friendRequestCallback: IFriendRequestCallback, userId: Int){
+    fun getFriendRequestByUserId(userId: Int): LiveData<List<FriendRequestReceiverDTO>>{
+        val response: MutableLiveData<List<FriendRequestReceiverDTO>> = MutableLiveData()
+
         httpClient.get("$url/GetFriendRequestsByUserId/$userId", object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
@@ -50,7 +57,7 @@ class FriendRepository {
             ) {
                 val friends = getFriendsFromString( String(responseBody!!) )
                 Log.d(TAG, "Users received - ${friends.size}")
-                friendRequestCallback.onFriendRequestsReady(friends)
+                response.value = friends
             }
 
             override fun onFailure(
@@ -63,9 +70,12 @@ class FriendRepository {
             }
 
         })
+        return response
     }
 
-    fun acceptFriendRequest(friendRequestAcceptCallback: IFriendRequestAcceptCallback, userId: Int, friendshipId: Int){
+    fun acceptFriendRequest(userId: Int, friendshipId: Int): MutableLiveData<FriendDTO> {
+        val response: MutableLiveData<FriendDTO> = MutableLiveData()
+
 
         httpClient.put("$url/AcceptFriendRequest?friendshipId=$friendshipId&acceptingUserId=$userId", object: AsyncHttpResponseHandler(){
             override fun onSuccess(
@@ -73,7 +83,7 @@ class FriendRepository {
                 headers: Array<out Header>?,
                 responseBody: ByteArray?
             ) {
-                friendRequestAcceptCallback.onFriendAccepted(FriendDTO(JSONObject(String(responseBody!!))))
+                response.value = FriendDTO(JSONObject(String(responseBody!!)))
             }
 
             override fun onFailure(
@@ -86,6 +96,8 @@ class FriendRepository {
             }
 
         })
+
+        return response
     }
 
     private fun getFriendDTOsFromString(jsonString: String?): List<FriendDTO> {

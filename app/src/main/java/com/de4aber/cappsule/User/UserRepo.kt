@@ -1,7 +1,8 @@
 package com.de4aber.cappsule.User
 
 import android.util.Log
-import com.de4aber.cappsule.Friend.FriendDTO
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestParams
@@ -17,7 +18,9 @@ class UserRepo {
 
     private val httpClient: AsyncHttpClient = AsyncHttpClient()
 
-    fun getAll(userCallback: IUserCallback){
+    fun getAll(): LiveData<List<UserDTO>>{
+
+        val response: MutableLiveData<List<UserDTO>> = MutableLiveData()
         httpClient.get("$url/GetAllDTOs", object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
@@ -26,7 +29,7 @@ class UserRepo {
             ) {
                 val users = getUsersFromString( String(responseBody!!) )
                 Log.d(TAG, "Users received - ${users.size}")
-                userCallback.onUsersReady( users )
+                response.value =users
             }
 
             override fun onFailure(
@@ -39,16 +42,19 @@ class UserRepo {
             }
 
         })
+
+        return response
     }
 
-    fun getUserById(getUserFromId: IGetUserFromId, id:Int){
+    fun getUserById(id: Int): LiveData<UserDTO>{
+        val response: MutableLiveData<UserDTO> = MutableLiveData()
         httpClient.get("$url/$id", object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
                 headers: Array<out Header>?,
                 responseBody: ByteArray?
             ) {
-                getUserFromId.onUserReady(UserDTO(JSONObject(String(responseBody!!))))
+                response.value = UserDTO(JSONObject(String(responseBody!!)))
             }
 
             override fun onFailure(
@@ -61,12 +67,11 @@ class UserRepo {
             }
 
         })
+        return response
     }
 
-    interface IGetUserFromId{
-        fun onUserReady(user: UserDTO)
-    }
 
+    //Virker prob ikke
     fun createUser(userDTO: UserDTO) {
         val params = RequestParams()
         params.put("username", userDTO.username)

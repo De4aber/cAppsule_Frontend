@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.de4aber.cappsule.Friend.FriendDTO
-import com.de4aber.cappsule.Friend.IFriendCallback
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
 
@@ -47,17 +46,17 @@ class FriendListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loggedUserViewModel.friendRepository.getFriendsByUserId(object : IFriendCallback{
-            override fun onFriendsReady(friends: List<FriendDTO>) {
-                updateUI(friends)
-            }
-        },loggedUserViewModel.loggedUser.id)
+        loggedUserViewModel.getFriends().observe(viewLifecycleOwner) { fr ->
+            updateUI(fr)
+        }
     }
 
     fun updateUI(friends: List<FriendDTO>){
         adapter = FriendAdapter(friends)
         friendRecyclerView.adapter = adapter
     }
+
+
 
     private inner class FriendHolder(view: View)
         : RecyclerView.ViewHolder(view){
