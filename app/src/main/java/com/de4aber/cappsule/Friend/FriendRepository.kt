@@ -1,17 +1,19 @@
 package com.de4aber.cappsule.Friend
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.de4aber.cappsule.User.SearchForUserIsFriendDTO
-import com.de4aber.cappsule.User.UserLimitedInfoDTO
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
+import cz.msebera.android.httpclient.entity.StringEntity
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+
 
 private const val TAG ="FriendRepository"
 
@@ -23,7 +25,6 @@ class FriendRepository {
 
     fun getFriendsByUserId(userId: Int): LiveData<List<FriendDTO>>{
         val response: MutableLiveData<List<FriendDTO>> = MutableLiveData()
-
         httpClient.get("$url/GetFriendsByUserId/$userId", object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
@@ -78,7 +79,6 @@ class FriendRepository {
     fun acceptFriendRequest(userId: Int, friendshipId: Int): MutableLiveData<FriendDTO> {
         val response: MutableLiveData<FriendDTO> = MutableLiveData()
 
-
         httpClient.put("$url/AcceptFriendRequest?friendshipId=$friendshipId&acceptingUserId=$userId", object: AsyncHttpResponseHandler(){
             override fun onSuccess(
                 statusCode: Int,
@@ -100,6 +100,39 @@ class FriendRepository {
         })
 
         return response
+    }
+
+    fun requestFriendship(context:Context,  friendRequestDTO: FriendRequestDTO): MutableLiveData<Boolean> {
+
+        val params = JSONObject()
+        params.put("fromUserId", friendRequestDTO.FromUserId)
+        params.put("toUsername", friendRequestDTO.ToUsername)
+        val entity = StringEntity(params.toString())
+
+        val response: MutableLiveData<Boolean> = MutableLiveData()
+
+        httpClient.post(context,"$url/RequestFriend", entity, "application/json", object: AsyncHttpResponseHandler(){
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                response.value = String(responseBody!!).toBoolean()
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in AcceptFriendRequest statusCode = $statusCode")
+            }
+
+        })
+
+        return response
+
     }
 
     private fun getFriendDTOsFromString(jsonString: String?): List<FriendDTO> {

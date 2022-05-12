@@ -77,7 +77,12 @@ class UserSearchListFragment : Fragment() {
 
         private fun onClickRequestUser() {
 
-            //TODO
+           loggedUserViewModel.sendFriendRequest(requireContext(), user.username).observe(viewLifecycleOwner) {b ->
+               if(b){
+                   btnAddUser.text = "Added"
+                   btnAddUser.isEnabled = false
+               }
+           }
         }
 
     }
