@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateCapsuleActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnOpenPictureMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Take Picture" />
+
+            <ImageView
+                android:id="@+id/imgPhoto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_logo"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/editTextMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnOpenMapToSelectLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Open Map to add location" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TimePicker
+                android:id="@+id/timePickerTime"
+                android:layout_width="176dp"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner" />
+
+            <DatePicker
+                android:id="@+id/datePickerDate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:datePickerMode="calendar" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/createTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tæst" />
+
+        <ListView
+            android:id="@+id/lvFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </ListView>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

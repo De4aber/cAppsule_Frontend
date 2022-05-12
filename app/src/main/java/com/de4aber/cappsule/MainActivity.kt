@@ -69,8 +69,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-
-
     private fun onClickFriend() {
         home.setColorFilter(Color.rgb(87, 124, 140))
         map.setColorFilter(Color.rgb(87, 124, 140))
