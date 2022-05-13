@@ -48,6 +48,8 @@
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/list_item_user.xml" value="0.25" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/user_fragment.xml" value="0.12407407407407407" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1935" />
+        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_login.xml" value="0.26992753623188404" />
+        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_register.xml" value="0.25" />
       </map>
     </option>
   </component>
