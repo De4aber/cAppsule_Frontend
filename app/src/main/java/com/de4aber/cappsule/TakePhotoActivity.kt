@@ -31,7 +31,6 @@ import java.util.concurrent.Executors
 
 class TakePhotoActivity : AppCompatActivity() {
 
-    val TAG = "xyz"
     private val PERMISSION_REQUEST_CODE = 1
     private var isFrontCamera: Boolean = false
     var picturePath = ""
@@ -67,6 +66,7 @@ class TakePhotoActivity : AppCompatActivity() {
     }
 
     private fun OnClickSave() {
+        Log.d("TakePhotoActivity", picturePath)
         val data = Intent().apply { putExtra("picture", picturePath) }
         setResult(Activity.RESULT_OK, data)
         finish()
@@ -197,6 +197,7 @@ class TakePhotoActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>, grantResults:
         IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
                 startCamera()
