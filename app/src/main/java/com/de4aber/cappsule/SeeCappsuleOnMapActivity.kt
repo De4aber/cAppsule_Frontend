@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import com.de4aber.cappsule.Utility.BECapsuleText
+import com.de4aber.cappsule.Utility.BEFriend
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -30,6 +32,13 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var wantZoom: Boolean = false
 
+    private var liste = listOf<BEFriend>(BEFriend("bob"), BEFriend("bent"))
+
+    val allCappsules = listOf<BECapsuleText>(
+        BECapsuleText(liste),
+        BECapsuleText(liste)
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_see_cappsule_on_map)
@@ -44,6 +53,12 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         btnMapZoom.setOnClickListener { onClickZoom() }
         btnMapBack.setOnClickListener { finish() }
+
+        allCappsules[0].latitude = 55.471793424146234
+        allCappsules[0].longitude = 8.451112645531
+        allCappsules[1].latitude = 55.4677613612147
+        allCappsules[1].longitude = 8.453494446915784
+
     }
 
     private fun ZoomOnCurrentLocation(coords: LatLng) {
@@ -86,5 +101,9 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        allCappsules.forEach {
+            var loc = LatLng(it.latitude,it.longitude)
+            mMap.addMarker(MarkerOptions().position(loc).title("${it.receiver}"))
+        }
     }
 }

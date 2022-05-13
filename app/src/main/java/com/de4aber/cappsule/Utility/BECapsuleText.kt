@@ -1,7 +1,5 @@
 package com.de4aber.cappsule.Utility
 
-import com.de4aber.cappsule.Utility.BEFriend
-import com.google.android.gms.maps.model.LatLng
 import java.io.Serializable
 
 class BECapsuleText(var receiver: List<BEFriend>) : Serializable{
