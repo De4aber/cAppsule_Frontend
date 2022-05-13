@@ -1,9 +1,9 @@
 package com.de4aber.cappsule
 
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.de4aber.cappsule.Utility.BECapsuleText
 import com.de4aber.cappsule.Utility.BEFriend
@@ -14,8 +14,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.activity_add_location3.*
 import kotlinx.android.synthetic.main.activity_see_cappsule_on_map.*
 
 class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -33,6 +33,8 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private var wantZoom: Boolean = false
 
     private var liste = listOf<BEFriend>(BEFriend("bob"), BEFriend("bent"))
+
+    private lateinit var selectedMarker: Marker
 
     val allCappsules = listOf<BECapsuleText>(
         BECapsuleText(liste),
@@ -53,12 +55,17 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         btnMapZoom.setOnClickListener { onClickZoom() }
         btnMapBack.setOnClickListener { finish() }
+        btnOpenCapsuleFromMap.setOnClickListener { onClickOpen() }
 
         allCappsules[0].latitude = 55.471793424146234
         allCappsules[0].longitude = 8.451112645531
         allCappsules[1].latitude = 55.4677613612147
         allCappsules[1].longitude = 8.453494446915784
 
+    }
+
+    private fun onClickOpen() {
+        TODO("Not yet implemented")
     }
 
     private fun ZoomOnCurrentLocation(coords: LatLng) {
@@ -101,9 +108,25 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        setupOnClickMarkers()
+        setupAllCapsules()
+    }
+
+    private fun setupOnClickMarkers(){
+        mMap.setOnMarkerClickListener { marker ->
+            selectedMarker = marker
+            Log.d(TAG,selectedMarker.toString())
+            false
+        }
+    }
+
+    private fun setupAllCapsules(){
+        var i = 1
         allCappsules.forEach {
             var loc = LatLng(it.latitude,it.longitude)
-            mMap.addMarker(MarkerOptions().position(loc).title("${it.receiver}"))
+            var marker = mMap.addMarker(MarkerOptions().position(loc).title("${i}"))
+            marker.tag = it
+            i++
         }
     }
 }
