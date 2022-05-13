@@ -70,12 +70,15 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun onClickOpen() {
-        if(selectedMarker.equals(currentLocationMarker)){
-            Toast.makeText(this, "You cannot open your own location!", Toast.LENGTH_SHORT)
-            Log.d(TAG, "JAAA")
+        if(!this::selectedMarker.isInitialized){
+            Toast.makeText(this, "Please select a marker to open it!", Toast.LENGTH_SHORT).show()
             return
         }
-        Log.d(TAG, "NEEEJ")
+        if(selectedMarker.equals(currentLocationMarker)){
+            Toast.makeText(this, "You cannot open your own location!", Toast.LENGTH_SHORT).show()
+            return
+        }
+        Log.d(TAG, "cool, du gjorde det")
     }
 
     private fun ZoomOnCurrentLocation(coords: LatLng) {
@@ -137,7 +140,10 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
             var marker = mMap.addMarker(MarkerOptions().position(loc).title("${i}"))
             marker.tag = it
             i++
-            currentLocationMarker = marker
+            hack(marker)
         }
+    }
+    private fun hack(marker: Marker){
+        currentLocationMarker = marker
     }
 }
