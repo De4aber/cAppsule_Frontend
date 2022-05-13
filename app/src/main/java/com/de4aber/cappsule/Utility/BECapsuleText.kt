@@ -9,6 +9,7 @@ class BECapsuleText(var receiver: List<BEFriend>) : Serializable{
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     var pictureUri : String = ""
+    var cappsuleID: Int = 0
 
     override fun toString(): String {
         return "Message = $message, Time = $time, Date = $date, Location = $latitude.$longitude, Picture Uri = $pictureUri, Receiver = $receiver"

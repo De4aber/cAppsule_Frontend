@@ -3,6 +3,7 @@ package com.de4aber.cappsule
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.de4aber.cappsule.Utility.BECapsuleText
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_see_cappsule_on_map.*
+import kotlin.math.log
 
 class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -35,6 +37,8 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private var liste = listOf<BEFriend>(BEFriend("bob"), BEFriend("bent"))
 
     private lateinit var selectedMarker: Marker
+
+    private lateinit var currentLocationMarker: Marker
 
     val allCappsules = listOf<BECapsuleText>(
         BECapsuleText(liste),
@@ -59,13 +63,19 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         allCappsules[0].latitude = 55.471793424146234
         allCappsules[0].longitude = 8.451112645531
+        allCappsules[0].cappsuleID = 1
         allCappsules[1].latitude = 55.4677613612147
         allCappsules[1].longitude = 8.453494446915784
-
+        allCappsules[1].cappsuleID = 2
     }
 
     private fun onClickOpen() {
-        TODO("Not yet implemented")
+        if(selectedMarker.equals(currentLocationMarker)){
+            Toast.makeText(this, "You cannot open your own location!", Toast.LENGTH_SHORT)
+            Log.d(TAG, "JAAA")
+            return
+        }
+        Log.d(TAG, "NEEEJ")
     }
 
     private fun ZoomOnCurrentLocation(coords: LatLng) {
@@ -91,7 +101,7 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 currentLatitude = it.latitude
                 currentLongitude = it.longitude
                 var coords = LatLng(currentLatitude, currentLongitude)
-                mMap.addMarker(MarkerOptions().position(coords).title("Your location"))
+                currentLocationMarker = mMap.addMarker(MarkerOptions().position(coords).title("Your location"))
                 if(wantZoom){
                     ZoomOnCurrentLocation(coords)
                     wantZoom = false
@@ -127,6 +137,7 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
             var marker = mMap.addMarker(MarkerOptions().position(loc).title("${i}"))
             marker.tag = it
             i++
+            currentLocationMarker = marker
         }
     }
 }
