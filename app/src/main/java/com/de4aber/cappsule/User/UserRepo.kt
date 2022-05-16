@@ -1,5 +1,6 @@
 package com.de4aber.cappsule.User
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +8,7 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
+import cz.msebera.android.httpclient.entity.StringEntity
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -100,11 +102,16 @@ class UserRepo {
 
 
     //Virker prob ikke
-    fun createUser(userDTO: UserDTO) {
-        val params = RequestParams()
+    fun createUser(context: Context, userDTO: CreateUserDTO): MutableLiveData<UserDTO> {
+        val params = JSONObject()
         params.put("username", userDTO.username)
+        params.put("password", userDTO.username)
+        params.put("birthDate", userDTO.birthdate)
+        val entity = StringEntity(params.toString())
 
-        httpClient.post("$url/CreateUser", params, object : AsyncHttpResponseHandler() {
+        val response: MutableLiveData<UserDTO> = MutableLiveData()
+
+        httpClient.post(context,"$url/CreateUser",entity, "application/json", object : AsyncHttpResponseHandler() {
 
             override fun onSuccess(
                 statusCode: Int,
@@ -112,6 +119,7 @@ class UserRepo {
                 responseBody: ByteArray?
             ) {
                 Log.d(TAG, "success in createUser statusCode = $statusCode")
+                response.value = UserDTO(JSONObject(String(responseBody!!)))
             }
 
             override fun onFailure(
@@ -124,7 +132,7 @@ class UserRepo {
             }
         })
 
-
+        return response
 
     }
 
