@@ -1,13 +1,11 @@
+package com.de4aber.cappsule
+
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
-import com.de4aber.cappsule.R
 import com.de4aber.cappsule.Utility.BECapsuleText
 import com.de4aber.cappsule.Utility.BEFriend
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -20,21 +18,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_see_cappsule_on_map.*
+import kotlin.math.log
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MapSegmentFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MapSegmentFragment : Fragment(), OnMapReadyCallback {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map_segment, container, false)
-    }
+class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val TAG = "xyz"
 
@@ -59,24 +45,20 @@ class MapSegmentFragment : Fragment(), OnMapReadyCallback {
         BECapsuleText(liste)
     )
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_see_cappsule_on_map)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = SupportMapFragment.newInstance()
-
-        childFragmentManager
-            .beginTransaction()
-            .add(R.id.map2, mapFragment)
-            .commit()
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-
-
         //Initialize fused location
-        client = LocationServices.getFusedLocationProviderClient(requireActivity())
+        client = LocationServices.getFusedLocationProviderClient(this)
 
         btnMapZoom.setOnClickListener { onClickZoom() }
+        btnMapBack.setOnClickListener { finish() }
         btnOpenCapsuleFromMap.setOnClickListener { onClickOpen() }
 
         allCappsules[0].latitude = 55.471793424146234
@@ -89,14 +71,14 @@ class MapSegmentFragment : Fragment(), OnMapReadyCallback {
 
     private fun onClickOpen() {
         if(!this::selectedMarker.isInitialized){
-            Toast.makeText(requireActivity(), "Please select a marker to open it!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please select a marker to open it!", Toast.LENGTH_SHORT).show()
             return
         }
         if(selectedMarker.equals(currentLocationMarker)){
-            Toast.makeText(requireActivity(), "You cannot open your own location!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "You cannot open your own location!", Toast.LENGTH_SHORT).show()
             return
         }
-        Toast.makeText(requireActivity(), "Not implemented yet", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
     }
 
     private fun ZoomOnCurrentLocation(coords: LatLng) {
@@ -110,11 +92,11 @@ class MapSegmentFragment : Fragment(), OnMapReadyCallback {
     private fun getCurrentLocation(){
         val task = client.lastLocation
 
-        if(ActivityCompat.checkSelfPermission(requireActivity(),
+        if(ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(requireActivity(),
+            ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 101)
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 101)
             return
         }
         task.addOnSuccessListener {
@@ -163,11 +145,5 @@ class MapSegmentFragment : Fragment(), OnMapReadyCallback {
     }
     private fun hack(marker: Marker){
         currentLocationMarker = marker
-    }
-
-    companion object {
-        fun newInstance() :MapSegmentFragment{
-            return MapSegmentFragment()
-        }
     }
 }

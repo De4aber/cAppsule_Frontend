@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onClickLogin() {
 
-        val intent = Intent(this, CreateCapsuleActivity::class.java)
+        val intent = Intent(this, SeeCappsuleOnMapActivity::class.java)
         startActivity(intent);
         val plainPW = editTextTextPassword.text.toString()
         val username = editTextTextPersonName.text.toString()
