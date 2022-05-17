@@ -1,9 +1,13 @@
 package com.de4aber.cappsule
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.de4aber.cappsule.User.CreateUserDTO
+import com.de4aber.cappsule.User.UserRepo
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -29,13 +33,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun onClickLogin() {
 
-        /*
-        val user = BEUser(txtUsernameRegister.text.toString(),)
-
-        UserRepo().createUser(user)
-
-         */
-
         finish()
     }
 
@@ -45,16 +42,27 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun onClickSignUp() {
 
-        val username = editTextTextPersonName.text.toString()
+        val username = txtUsernameRegister.text.toString()
         if (!isLegalUsername(username)){
             return
         }
 
-        val pw1 = editTextTextPassword.text.toString()
-        val pw2 = editTextTextPassword2.text.toString()
+        val pw1 = txtPasswordRegister.text.toString()
+        val pw2 = txtPasswordRegister2.text.toString()
         if (!isLegalPassword(pw1, pw2)){
             return
         }
+
+
+        //Todo birthday is hardcoded
+        UserRepo().createUser(this, CreateUserDTO(username,"2022-05-16", pw1))
+            .observe(this) {
+
+                //TODO need to be changed when login works?
+                u->
+                val intent = MainActivity.newIntent(this, u.id)
+                startActivity(intent);
+            }
     }
 
     /**
