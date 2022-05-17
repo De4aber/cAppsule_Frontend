@@ -105,7 +105,7 @@ class UserRepo {
     fun createUser(context: Context, userDTO: CreateUserDTO): MutableLiveData<UserDTO> {
         val params = JSONObject()
         params.put("username", userDTO.username)
-        params.put("password", userDTO.username)
+        params.put("password", userDTO.password)
         params.put("birthDate", userDTO.birthdate)
         val entity = StringEntity(params.toString())
 
