@@ -78,7 +78,7 @@ class SeeCappsuleOnMapActivity : AppCompatActivity(), OnMapReadyCallback {
             Toast.makeText(this, "You cannot open your own location!", Toast.LENGTH_SHORT).show()
             return
         }
-        Log.d(TAG, "cool, du gjorde det")
+        Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
     }
 
     private fun ZoomOnCurrentLocation(coords: LatLng) {
