@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,11 +51,7 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel.userRepo.getAll(object : IUserCallback{
-            override fun onUsersReady(users: List<UserDTO>) {
-                updateUI(users)
-            }
-        })
+        loginViewModel.getAllUsers().observe(viewLifecycleOwner) { u -> updateUI(u) }
     }
 
     fun updateUI(friends: List<UserDTO>){

@@ -5,21 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.de4aber.cappsule.Friend.FriendDTO
+import com.de4aber.cappsule.Friend.FriendRequestReceiverDTO
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FriendListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FriendListFragment : Fragment() {
-    //region Variables and Values
+class FriendRequestListFragment : Fragment() {
 
     private var adapter: FriendAdapter? = null
     private lateinit var friendRecyclerView: RecyclerView
@@ -28,52 +23,63 @@ class FriendListFragment : Fragment() {
         ViewModelProvider(requireActivity()).get(LoggedUserViewModel::class.java)
     }
 
-    //endregion
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_friend_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_friend_request_list, container, false)
         friendRecyclerView=
-            view.findViewById(R.id.friend_recycler_view) as RecyclerView
+            view.findViewById(R.id.fragFriendRequestList_RecyclerView) as RecyclerView
         friendRecyclerView.layoutManager = LinearLayoutManager(context)
 
         return view
-
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loggedUserViewModel.getFriends().observe(viewLifecycleOwner) { fr ->
-            updateUI(fr)
-        }
+        loggedUserViewModel.getFriendRequests()
+            .observe(viewLifecycleOwner) { fr -> updateUI(fr) }
     }
 
-    fun updateUI(friends: List<FriendDTO>){
+    fun updateUI(friends: List<FriendRequestReceiverDTO>){
         adapter = FriendAdapter(friends)
         friendRecyclerView.adapter = adapter
     }
 
-
-
     private inner class FriendHolder(view: View)
         : RecyclerView.ViewHolder(view){
-        private lateinit var friend: FriendDTO
-        private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItemFriend)
+        private lateinit var friend: FriendRequestReceiverDTO
+        private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_ListItemFriendRequest)
+        private val btnAcceptFriendRequest: Button = itemView.findViewById(R.id.btnAccept_friendRequest)
 
 
-        fun bind(friend: FriendDTO){
+        fun bind(friend: FriendRequestReceiverDTO){
             this.friend = friend
-            txtUsername.text = this.friend.username
+            txtUsername.text = this.friend.UserRequesting
+            btnAcceptFriendRequest.setOnClickListener { onClickAcceptFriend()}
+        }
+
+        private fun onClickAcceptFriend() {
+
+            loggedUserViewModel.acceptFriendRequest(
+                friend.id
+            ).observe(viewLifecycleOwner) {
+                btnAcceptFriendRequest.text = "Accepted"
+                btnAcceptFriendRequest.isEnabled = false
+            }
+
         }
 
     }
 
-    private inner class FriendAdapter(var friends:List<FriendDTO>) : RecyclerView.Adapter<FriendHolder>() {
+    private inner class FriendAdapter(var friends: List<FriendRequestReceiverDTO>) : RecyclerView.Adapter<FriendHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_friend, parent, false)
+            val view = layoutInflater.inflate(R.layout.list_item_friendrequest, parent, false)
             return FriendHolder(view)
         }
 
@@ -86,8 +92,8 @@ class FriendListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): FriendListFragment {
-            return FriendListFragment()
-        }
+        fun newInstance(): FriendRequestListFragment {
+                    return FriendRequestListFragment()
+            }
     }
 }

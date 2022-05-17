@@ -8,52 +8,31 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
-import kotlinx.android.synthetic.main.fragment_friend_segment.*
-
-
-private const val TAG = "FriendSegmentFragment"
-
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FriendSegmentFragment.newInstance] factory method to
+ * Use the [FriendRequestFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FriendSegmentFragment : Fragment() {
 
+private const val ARG_PARAM_SEARCHSTRING = "searchstring"
+class FriendRequestFragment : Fragment() {
 
+    private var searchString: String? = null
 
     private val loggedUserViewModel : LoggedUserViewModel by lazy {
         ViewModelProvider(requireActivity()).get(LoggedUserViewModel::class.java)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_friend_segment, container, false)
-
-        return view
-    }
-
-    private fun onClickAddFriend() {
-        requireActivity().supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragShowing, AddFriendFragment())
-            .commit()
+        arguments?.let {
+            searchString = it.getString(ARG_PARAM_SEARCHSTRING)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        imgbtn_addFriend.setOnClickListener { onClickAddFriend() }
         val currentFriendListFragment = childFragmentManager.findFragmentById(R.id.fragFriendList)
         if (currentFriendListFragment == null){
             childFragmentManager
@@ -63,9 +42,23 @@ class FriendSegmentFragment : Fragment() {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_friend_request, container, false)
+    }
+
+
+
     companion object {
-        fun newInstance(): FriendSegmentFragment {
-            return FriendSegmentFragment()
+        fun newInstance(): FriendRequestFragment {
+            return FriendRequestFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM_SEARCHSTRING, searchString)
+                }
+            }
         }
     }
 }
