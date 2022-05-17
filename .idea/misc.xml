@@ -34,9 +34,14 @@
         <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_main.xml" value="0.20871327254305977" />
         <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_see_cappsule_on_map.xml" value="0.358695652173913" />
         <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_take_photo.xml" value="0.358695652173913" />
+        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/fragment_home_segment.xml" value="0.358695652173913" />
         <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/fragment_map_segment.xml" value="0.358695652173913" />
         <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/fragment_maps.xml" value="0.358695652173913" />
+        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/fragment_user_list.xml" value="0.358695652173913" />
         <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/friend_list_unit.xml" value="0.33" />
+        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/list_item_friend.xml" value="0.358695652173913" />
+        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/list_item_user.xml" value="0.358695652173913" />
+        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/user_fragment.xml" value="0.358695652173913" />
       </map>
     </option>
   </component>
