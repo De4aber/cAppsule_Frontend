@@ -41,7 +41,6 @@ class CapsuleSegmentFragment : Fragment() {
     private lateinit var pictureUri: String
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
-    private val Image_Capture_Code = 1
 
 
     override fun onCreateView(
