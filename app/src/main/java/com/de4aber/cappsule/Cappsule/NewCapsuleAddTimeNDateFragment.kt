@@ -36,7 +36,12 @@ class NewCapsuleAddTimeNDateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         tpTime_capsuleSegment.setIs24HourView(true)
+
+        onDateChanged(dpDate_capsuleSegment.year,dpDate_capsuleSegment.month+1,dpDate_capsuleSegment.dayOfMonth)
+        onTimeChanged(tpTime_capsuleSegment.hour, tpTime_capsuleSegment.minute)
+
         tpTime_capsuleSegment.setOnTimeChangedListener { timePicker, hour, minute ->  onTimeChanged(hour, minute)}
 
         dpDate_capsuleSegment.setOnDateChangedListener { datePicker, year, month, day -> onDateChanged(year, (month+1), day)  }

@@ -28,6 +28,7 @@ class LoggedUserViewModel():ViewModel() {
     var messageNewCapsule : String? = null
     var timeNewCapsule: String? = null
     var dateNewCapsule: String? = null
+    val recipientsNewCapsule: MutableList<FriendDTO> = mutableListOf()
 
 
     fun getFriends(): LiveData<List<FriendDTO>> {
@@ -59,8 +60,13 @@ class LoggedUserViewModel():ViewModel() {
     }
 
     fun newCapsule(): SendCapsuleDTO? {
-        if(messageNewCapsule != null && timeNewCapsule != null && dateNewCapsule != null){
-            return SendCapsuleDTO("ove", messageNewCapsule!!, timeNewCapsule!!, dateNewCapsule!!)
+        val capsules = mutableListOf<SendCapsuleDTO>()
+
+        if(messageNewCapsule != null && timeNewCapsule != null && dateNewCapsule != null && recipientsNewCapsule.isNotEmpty()){
+            for (f in recipientsNewCapsule){
+                capsules.add(SendCapsuleDTO(f.username, messageNewCapsule!!, timeNewCapsule!!, dateNewCapsule!!))
+            }
+            return capsules[capsules.size-1]
         }
         return null
     }

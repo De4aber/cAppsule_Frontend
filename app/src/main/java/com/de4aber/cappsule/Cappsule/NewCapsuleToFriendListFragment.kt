@@ -1,16 +1,17 @@
 package com.de4aber.cappsule.Cappsule
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.de4aber.cappsule.Friend.FriendDTO
-import com.de4aber.cappsule.Friendlist.FriendRequestListFragment
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
 
@@ -19,6 +20,8 @@ import com.de4aber.cappsule.User.LoggedUserViewModel
  * Use the [NewCapsuleToFriendListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+private const val TAG = "NCTFLF"
 class NewCapsuleToFriendListFragment : Fragment() {
 
     private var adapter: FriendAdapter? = null
@@ -64,11 +67,23 @@ class NewCapsuleToFriendListFragment : Fragment() {
         : RecyclerView.ViewHolder(view){
         private lateinit var friend: FriendDTO
         private val txtUsername: TextView = itemView.findViewById(R.id.txtUsername_listItemNewCapsuleToFriend)
+        private val checkboxIsChecked : CheckBox = itemView.findViewById(R.id.checkBoxIsChecked_listItemNewCapsuleToFriend)
 
 
         fun bind(friend: FriendDTO){
             this.friend = friend
             txtUsername.text = this.friend.username
+            checkboxIsChecked.setOnCheckedChangeListener { compoundButton, b -> onCheckboxClicked(b) }
+        }
+
+        private fun onCheckboxClicked(b: Boolean) {
+            if(b){
+                loggedUserViewModel.recipientsNewCapsule.add(friend)
+            }
+            else{
+                loggedUserViewModel.recipientsNewCapsule.remove(friend)
+            }
+            Log.d(TAG, "recipient size ${loggedUserViewModel.recipientsNewCapsule.size}")
         }
 
     }
