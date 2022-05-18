@@ -56,10 +56,6 @@ class CapsuleSegmentFragment : Fragment() {
 
     }
 
-
-
-
-
     private fun onClickTest() {
         //Set receivers
         var capsule = loggedUserViewModel.newCapsule()
@@ -68,9 +64,6 @@ class CapsuleSegmentFragment : Fragment() {
         Log.d(TAG, capsule.toString())
     }
 
-    private fun asListMap(src: MutableList<BEFriend>): List<Map<String, String?>> {
-        return src.map{ person -> hashMapOf("name" to person.name) }
-    }
 
     companion object {
         fun newInstance() :CapsuleSegmentFragment{
