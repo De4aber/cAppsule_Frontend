@@ -10,6 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
@@ -22,11 +23,10 @@
             android:id="@+id/imageView5"
             android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/hourglass"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="8dp"
-            />
+            android:layout_weight="0"
+            app:srcCompat="@drawable/hourglass" />
 
         <TextView
             android:id="@+id/textView5"
@@ -49,5 +49,14 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCapsules_HomeSegment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

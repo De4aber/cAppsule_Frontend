@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_friendlogo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:minHeight="50dp"
+            android:orientation="vertical"
+            tools:minWidth="250dp">
+
+            <TextView
+                android:id="@+id/txtUsername_ListItemCapsule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/champagne_limousines_bold"
+                android:gravity="start|center_vertical"
+                android:maxWidth="185dp"
+                android:text="Username"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtNewCapsule_ListItemCapsule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/champagne_limousines_bold"
+                android:gravity="start|center_vertical"
+                android:minWidth="100dp"
+                android:text="new capsule"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnOpen_ListItemCapsule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
