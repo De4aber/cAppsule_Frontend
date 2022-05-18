@@ -72,7 +72,7 @@ class CapsuleRepository {
                 Log.d(TAG, "ReceiveCapsuleDTO received - ${receivedDTOs.size}")
                 val receivedCapsules: MutableList<Capsule> = mutableListOf()
                 for (dto in receivedDTOs){
-                    receivedCapsules.add(Capsule(dto.senderUsername,dto.message, dto.time, dto.latitude, dto.Longitude, getBitmapFromString(dto.photo)))
+                    receivedCapsules.add(Capsule(dto.senderUsername,dto.message, dto.time, getDoubleFromString(dto.latitude), getDoubleFromString(dto.longitude), getBitmapFromString(dto.photo)))
                 }
                 response.value = receivedCapsules
             }
@@ -93,13 +93,20 @@ class CapsuleRepository {
     /*
    * This Function converts the String back to Bitmap
    * */
-    private fun getBitmapFromString(stringPicture: String?): Bitmap? {
+    private fun getBitmapFromString(string: String?): Bitmap? {
 
-        if(stringPicture.isNullOrEmpty()){
+        if(string.isNullOrEmpty()|| string.startsWith("null")){
             return null
         }
-        val decodedString: ByteArray = Base64.decode(stringPicture, Base64.DEFAULT)
+        val decodedString: ByteArray = Base64.decode(string, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+    }
+
+    private fun getDoubleFromString(string: String): Double?{
+        if(string.isEmpty() || string.startsWith("null")){
+            return null
+        }
+        return string.toDouble()
     }
 
     private fun getReceiveCapsuleDTOsFromString(jsonString: String?): List<ReceiveCapsuleDTO> {
