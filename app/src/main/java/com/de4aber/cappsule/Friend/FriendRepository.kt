@@ -214,15 +214,16 @@ class FriendRepository {
     private fun getFriendsFromString(jsonString: String?): List<FriendRequestReceiverDTO> {
         val result = ArrayList<FriendRequestReceiverDTO>()
 
-        if (jsonString!!.startsWith("error")) {
-            Log.d(TAG, "Error: $jsonString")
-            return result
-        }
+
         if (jsonString == null) {
             Log.d(TAG, "Error: NO RESULT")
             return result
         }
-        var array: JSONArray?
+        if (jsonString.startsWith("error")) {
+            Log.d(TAG, "Error: $jsonString")
+            return result
+        }
+        val array: JSONArray?
         try {
             array = JSONArray(jsonString)
             for (i in 0 until array.length()) {

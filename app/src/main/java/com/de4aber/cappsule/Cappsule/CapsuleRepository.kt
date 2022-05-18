@@ -1,13 +1,18 @@
 package com.de4aber.cappsule.Cappsule
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.de4aber.cappsule.Friend.FriendRequestDTO
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import cz.msebera.android.httpclient.entity.StringEntity
+import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 
 private const val TAG ="CapsuleRepository"
@@ -52,5 +57,80 @@ class CapsuleRepository {
         })
         return response
 
+    }
+
+
+    fun getCapsulesByReceiverId(receiverId: Int): LiveData<List<Capsule>> {
+        val response: MutableLiveData<List<Capsule>> = MutableLiveData()
+        httpClient.get("$url/GetByReceiverId/$receiverId", object : AsyncHttpResponseHandler(){
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                val receivedDTOs = getReceiveCapsuleDTOsFromString( String(responseBody!!) )
+                Log.d(TAG, "ReceiveCapsuleDTO received - ${receivedDTOs.size}")
+                val receivedCapsules: MutableList<Capsule> = mutableListOf()
+                for (dto in receivedDTOs){
+                    receivedCapsules.add(Capsule(dto.senderUsername,dto.message, dto.time, getDoubleFromString(dto.latitude), getDoubleFromString(dto.longitude), getBitmapFromString(dto.photo)))
+                }
+                response.value = receivedCapsules
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in getCapsulesByReceiverId statusCode = $statusCode")
+            }
+
+        })
+        return response
+    }
+
+    /*
+   * This Function converts the String back to Bitmap
+   * */
+    private fun getBitmapFromString(string: String?): Bitmap? {
+
+        if(string.isNullOrEmpty()|| string.startsWith("null")){
+            return null
+        }
+        val decodedString: ByteArray = Base64.decode(string, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+    }
+
+    private fun getDoubleFromString(string: String): Double?{
+        if(string.isEmpty() || string.startsWith("null")){
+            return null
+        }
+        return string.toDouble()
+    }
+
+    private fun getReceiveCapsuleDTOsFromString(jsonString: String?): List<ReceiveCapsuleDTO> {
+        val result = ArrayList<ReceiveCapsuleDTO>()
+
+
+        if (jsonString == null) {
+            Log.d(TAG, "Error: NO RESULT")
+            return result
+        }
+        if (jsonString.startsWith("error")) {
+            Log.d(TAG, "Error: $jsonString")
+            return result
+        }
+        val array: JSONArray?
+        try {
+            array = JSONArray(jsonString)
+            for (i in 0 until array.length()) {
+                result.add(ReceiveCapsuleDTO(array.getJSONObject(i)))
+            }
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return result
     }
 }

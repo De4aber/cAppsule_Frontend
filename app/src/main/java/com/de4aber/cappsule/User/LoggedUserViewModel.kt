@@ -5,7 +5,9 @@ import android.graphics.Bitmap
 import android.util.Log
 import android.util.Log.DEBUG
 import androidx.lifecycle.*
+import com.de4aber.cappsule.Cappsule.Capsule
 import com.de4aber.cappsule.Cappsule.CapsuleRepository
+import com.de4aber.cappsule.Cappsule.ReceiveCapsuleDTO
 import com.de4aber.cappsule.Cappsule.SendCapsuleDTO
 import com.de4aber.cappsule.Friend.FriendDTO
 import com.de4aber.cappsule.Friend.FriendRepository
@@ -71,6 +73,10 @@ class LoggedUserViewModel():ViewModel() {
             }
         }
         return capsules
+    }
+
+    fun receiveCapsules(): LiveData<List<Capsule>> {
+        return capsuleRepository.getCapsulesByReceiverId(loggedUser.id)
     }
 
 }

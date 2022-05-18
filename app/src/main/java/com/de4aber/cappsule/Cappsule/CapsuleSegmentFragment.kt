@@ -34,6 +34,8 @@ import kotlinx.android.synthetic.main.fragment_capsule_segment.*
 private const val TAG= "CapsuleSegmentFragment"
 class CapsuleSegmentFragment : Fragment() {
 
+
+
     private val loggedUserViewModel : LoggedUserViewModel by lazy {
         ViewModelProvider(requireActivity()).get(LoggedUserViewModel::class.java)
     }
