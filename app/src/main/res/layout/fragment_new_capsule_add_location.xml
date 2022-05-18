@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Cappsule.newCapsuleAddLocationFragment">
+    tools:context=".Cappsule.NewCapsuleAddLocationFragment">
 
     <Button
         android:id="@+id/btnMap_capsuleSegment"

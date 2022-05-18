@@ -92,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@id/linearLayout_SwitchTimeNPlace">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView"
+            android:id="@+id/fragExampleText_newCapsule"
             android:name="com.de4aber.cappsule.Cappsule.NewCapsuleAddTextFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
         app:layout_constraintTop_toBottomOf="@id/linearLayout_SwitchTimeNPlace">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView2"
+            android:id="@+id/fragExampleTime_newCapsule"
             android:name="com.de4aber.cappsule.Cappsule.NewCapsuleAddTimeNDateFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

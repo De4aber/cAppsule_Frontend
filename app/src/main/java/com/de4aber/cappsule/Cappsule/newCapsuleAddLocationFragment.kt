@@ -17,10 +17,10 @@ import kotlinx.android.synthetic.main.fragment_new_capsule_add_location.*
 
 /**
  * A simple [Fragment] subclass.
- * Use the [newCapsuleAddLocationFragment.newInstance] factory method to
+ * Use the [NewCapsuleAddLocationFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class newCapsuleAddLocationFragment : Fragment() {
+class NewCapsuleAddLocationFragment : Fragment() {
 
     private val loggedUserViewModel : LoggedUserViewModel by lazy {
         ViewModelProvider(requireActivity()).get(LoggedUserViewModel::class.java)
@@ -58,6 +58,6 @@ class newCapsuleAddLocationFragment : Fragment() {
 
     companion object {
         fun newInstance() =
-            newCapsuleAddLocationFragment()
+            NewCapsuleAddLocationFragment()
     }
 }
