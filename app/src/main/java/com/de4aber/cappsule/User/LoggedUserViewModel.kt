@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import android.util.Log.DEBUG
 import androidx.lifecycle.*
+import com.de4aber.cappsule.Cappsule.CapsuleRepository
 import com.de4aber.cappsule.Cappsule.SendCapsuleDTO
 import com.de4aber.cappsule.Friend.FriendDTO
 import com.de4aber.cappsule.Friend.FriendRepository
@@ -19,6 +20,7 @@ class LoggedUserViewModel():ViewModel() {
     lateinit var loggedUser: UserDTO
     private val friendRepository = FriendRepository();
     private val userRepo = UserRepo()
+    private val capsuleRepository = CapsuleRepository();
     var searchwordUser = ""
 
 
@@ -59,16 +61,16 @@ class LoggedUserViewModel():ViewModel() {
         return friendRepository.requestFriendship(context, FriendRequestDTO(loggedUser.id, toFriend))
     }
 
-    fun newCapsule(): SendCapsuleDTO? {
-        val capsules = mutableListOf<SendCapsuleDTO>()
+    fun newCapsule(context: Context): MutableList<LiveData<Boolean>> {
+        val capsules = mutableListOf<LiveData<Boolean>>()
 
         if(messageNewCapsule != null && timeNewCapsule != null && dateNewCapsule != null && recipientsNewCapsule.isNotEmpty()){
             for (f in recipientsNewCapsule){
-                capsules.add(SendCapsuleDTO(f.username, messageNewCapsule!!, timeNewCapsule!!, dateNewCapsule!!))
+                val cap = SendCapsuleDTO(loggedUser.id,f.username, messageNewCapsule!!, timeNewCapsule!!, dateNewCapsule!!)
+                capsules.add(capsuleRepository.sendCapsule(context, cap))
             }
-            return capsules[capsules.size-1]
         }
-        return null
+        return capsules
     }
 
 }

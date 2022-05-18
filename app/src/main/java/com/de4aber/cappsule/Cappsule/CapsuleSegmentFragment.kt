@@ -58,10 +58,15 @@ class CapsuleSegmentFragment : Fragment() {
 
     private fun onClickTest() {
         //Set receivers
-        var capsule = loggedUserViewModel.newCapsule()
+        var sendingCapsules = loggedUserViewModel.newCapsule(requireContext())
 
-        //Print capsule
-        Log.d(TAG, capsule.toString())
+        for (cap in sendingCapsules){
+            cap.observe(viewLifecycleOwner){c->
+                //Print capsule
+                Log.d(TAG, c.toString())
+            }
+        }
+
     }
 
 
