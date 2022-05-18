@@ -96,6 +96,9 @@ class LoggedUserViewModel():ViewModel() {
                 capsules.add(capsuleRepository.sendCapsule(context, cap))
             }
         }
+        else{
+            Toast.makeText(context,"You need to choose at least one recipient", Toast.LENGTH_SHORT).show()
+        }
         return capsules
     }
 
