@@ -3,6 +3,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
@@ -79,10 +80,14 @@ class CapsuleSegmentFragment : Fragment() {
         exampleFragTextNPhoto.isGone =true
         loggedUserViewModel.isTextNewCapsule = !b
         if(b){
+            btnTest_capsuleSegment.isEnabled = false
+            Toast.makeText(context,"Sending photos is not implemented", Toast.LENGTH_SHORT).show()
+
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragTextNPicture_newCapsule, NewCapsuleAddPhotoFragment.newInstance())
                 .commit()
+
         }
         else{
             requireActivity().supportFragmentManager
@@ -95,7 +100,7 @@ class CapsuleSegmentFragment : Fragment() {
 
     private fun onClickTest() {
         //Set receivers
-        var sendingCapsules = loggedUserViewModel.newCapsule(requireContext())
+        val sendingCapsules = loggedUserViewModel.newCapsule(requireContext())
 
         for (cap in sendingCapsules){
             cap.observe(viewLifecycleOwner){c->

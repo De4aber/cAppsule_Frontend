@@ -52,7 +52,15 @@ class NewCapsuleAddTimeNDateFragment : Fragment() {
     }
 
     private fun onTimeChanged(hour: Int, minute: Int) {
-        loggedUserViewModel.timeNewCapsule = "$hour:$minute"
+        var strHour = hour.toString()
+        if(strHour.length == 1){
+            strHour = "0$strHour"
+        }
+        var strMinute = minute.toString()
+        if(strMinute.length == 1){
+            strMinute = "0$strMinute"
+        }
+        loggedUserViewModel.timeNewCapsule = "$strHour:$strMinute"
 
     }
 

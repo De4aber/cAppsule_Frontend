@@ -32,7 +32,8 @@ class CapsuleRepository {
         params.put("time", sendCapsuleDTO.date + "T" + sendCapsuleDTO.time)
         params.put("latitude", sendCapsuleDTO.latitude)
         params.put("longitude", sendCapsuleDTO.longitude)
-        params.put("photo", sendCapsuleDTO.photo)
+        //TODO implement photos
+        params.put("photo", null)
         val entity = StringEntity(params.toString())
 
         val response: MutableLiveData<Boolean> = MutableLiveData()

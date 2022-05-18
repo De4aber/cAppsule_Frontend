@@ -27,8 +27,8 @@ class LoggedUserViewModel():ViewModel() {
     var searchwordUser = ""
 
 
-    var latitudeNewCapsule: Double = 0.0
-    var longitudeNewCapsule: Double = 0.0
+    var latitudeNewCapsule: Double? = null
+    var longitudeNewCapsule: Double? = null
     var photoNewCapsule : Bitmap? = null
     var messageNewCapsule : String? = null
     var timeNewCapsule: String? = null
@@ -80,6 +80,7 @@ class LoggedUserViewModel():ViewModel() {
                 else{
                     Toast.makeText(context,"Sending photos is not implemented", Toast.LENGTH_SHORT).show()
                     cap.photo = null
+                    return capsules
                 }
 
                 if(isTimeNewCapsule){
@@ -90,6 +91,8 @@ class LoggedUserViewModel():ViewModel() {
                     cap.latitude = latitudeNewCapsule
                     cap.longitude = longitudeNewCapsule
                 }
+
+                Log.d(TAG, cap.toString())
                 capsules.add(capsuleRepository.sendCapsule(context, cap))
             }
         }
