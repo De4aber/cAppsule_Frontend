@@ -133,7 +133,7 @@
 
     <FrameLayout
         android:id="@+id/fragtimeNPlace_newCapsule"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/fragFriendList_newCapsule"
         app:layout_constraintEnd_toEndOf="parent"
@@ -143,7 +143,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragExampleTime_newCapsule"
             android:name="com.de4aber.cappsule.Cappsule.NewCapsuleAddTimeNDateFragment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_new_capsule_add_time_n_date" />
     </FrameLayout>

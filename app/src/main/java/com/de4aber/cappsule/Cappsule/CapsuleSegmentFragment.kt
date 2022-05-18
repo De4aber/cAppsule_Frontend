@@ -60,6 +60,7 @@ class CapsuleSegmentFragment : Fragment() {
 
     private fun onSwitchedLocation(b: Boolean) {
         exampleLocationNTime.isGone =true
+        loggedUserViewModel.isTimeNewCapsule = !b
         if(b){
             requireActivity().supportFragmentManager
                 .beginTransaction()
@@ -76,6 +77,7 @@ class CapsuleSegmentFragment : Fragment() {
 
     private fun onSwitchedPicture(b: Boolean) {
         exampleFragTextNPhoto.isGone =true
+        loggedUserViewModel.isTextNewCapsule = !b
         if(b){
             requireActivity().supportFragmentManager
                 .beginTransaction()

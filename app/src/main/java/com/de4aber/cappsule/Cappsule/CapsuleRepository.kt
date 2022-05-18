@@ -14,6 +14,7 @@ import cz.msebera.android.httpclient.entity.StringEntity
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 
 private const val TAG ="CapsuleRepository"
 class CapsuleRepository {
@@ -107,6 +108,26 @@ class CapsuleRepository {
             return null
         }
         return string.toDouble()
+    }
+
+    /*
+ * This functions converts Bitmap picture to a string which can be
+ * JSONified.
+ * */
+    private fun getStringFromBitmap(bitmapPicture: Bitmap?): String? {
+        if (bitmapPicture != null) {
+            val COMPRESSION_QUALITY = 100
+            val encodedImage: String
+            val byteArrayBitmapStream = ByteArrayOutputStream()
+            bitmapPicture.compress(
+                Bitmap.CompressFormat.PNG, COMPRESSION_QUALITY,
+                byteArrayBitmapStream
+            )
+            val b: ByteArray = byteArrayBitmapStream.toByteArray()
+            encodedImage = Base64.encodeToString(b, Base64.DEFAULT)
+            return encodedImage
+        }
+        return null
     }
 
     private fun getReceiveCapsuleDTOsFromString(jsonString: String?): List<ReceiveCapsuleDTO> {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import android.util.Log.DEBUG
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.de4aber.cappsule.Cappsule.Capsule
 import com.de4aber.cappsule.Cappsule.CapsuleRepository
@@ -32,6 +33,9 @@ class LoggedUserViewModel():ViewModel() {
     var messageNewCapsule : String? = null
     var timeNewCapsule: String? = null
     var dateNewCapsule: String? = null
+
+    var isTextNewCapsule:Boolean = true
+    var isTimeNewCapsule:Boolean = true
     val recipientsNewCapsule: MutableList<FriendDTO> = mutableListOf()
 
 
@@ -66,9 +70,26 @@ class LoggedUserViewModel():ViewModel() {
     fun newCapsule(context: Context): MutableList<LiveData<Boolean>> {
         val capsules = mutableListOf<LiveData<Boolean>>()
 
-        if(messageNewCapsule != null && timeNewCapsule != null && dateNewCapsule != null && recipientsNewCapsule.isNotEmpty()){
+        if(recipientsNewCapsule.isNotEmpty()){
             for (f in recipientsNewCapsule){
-                val cap = SendCapsuleDTO(loggedUser.id,f.username, messageNewCapsule!!, timeNewCapsule!!, dateNewCapsule!!)
+                val cap = SendCapsuleDTO(loggedUser.id,f.username)
+
+                if(isTextNewCapsule){
+                    cap.message = messageNewCapsule
+                }
+                else{
+                    Toast.makeText(context,"Sending photos is not implemented", Toast.LENGTH_SHORT).show()
+                    cap.photo = null
+                }
+
+                if(isTimeNewCapsule){
+                    cap.time = timeNewCapsule
+                    cap.date = dateNewCapsule
+                }
+                else{
+                    cap.latitude = latitudeNewCapsule
+                    cap.longitude = longitudeNewCapsule
+                }
                 capsules.add(capsuleRepository.sendCapsule(context, cap))
             }
         }
