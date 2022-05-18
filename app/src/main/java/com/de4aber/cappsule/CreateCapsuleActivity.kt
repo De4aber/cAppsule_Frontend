@@ -90,9 +90,9 @@ class CreateCapsuleActivity : AppCompatActivity() {
         val adapter = SimpleAdapter(
             this,
             asListMap(friends.getAll()),
-            R.layout.friend_list_unit,
+            R.layout.list_item_new_capsule_to_friend,
             arrayOf("name"),
-            intArrayOf(R.id.name)
+            intArrayOf(R.id.txtUsername_listItemNewCapsuleToFriend)
         )
 
         lvFriends.adapter = adapter

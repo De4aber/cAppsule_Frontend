@@ -39,9 +39,7 @@ class CapsuleSegmentFragment : Fragment() {
     }
     var friends = FriendListTemp()
     private lateinit var pictureUri: String
-    private var latitude: Double = 0.0
-    private var longitude: Double = 0.0
-    private val Image_Capture_Code = 1
+
 
 
     override fun onCreateView(
@@ -54,81 +52,23 @@ class CapsuleSegmentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupFriendList()
         btnTest_capsuleSegment.setOnClickListener { onClickTest() }
-        tpTime_capsuleSegment.setIs24HourView(true)
-        btnPhoto_capsuleSegment.setOnClickListener { onClickTakePhoto() }
-        btnMap_capsuleSegment.setOnClickListener { onClickOpenMap() }
-    }
 
-    private fun onClickOpenMap() {
-        val mInt = Intent(requireContext(), AddLocationActivity::class.java)
-        mapLauncher.launch(mInt)
-    }
-
-    private fun onClickTakePhoto() {
-        val cInt = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraLauncher.launch(cInt)
-    }
-
-    var mapLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
-        if (result.resultCode == RESULT_OK) {
-            val data: Intent? = result.data
-            if(data?.getSerializableExtra("longitude") != null && data.getSerializableExtra("latitude") != null){
-                latitude = (data.getSerializableExtra("latitude") as Double)
-                longitude = (data.getSerializableExtra("longitude") as Double)
-            }
-        }
-    }
-
-    var cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val data: Intent? = result.data
-            val bp : Bitmap = data!!.extras!!.get("data") as Bitmap
-            imgPhoto_capsuleSegment.setImageBitmap(bp)
-        }
     }
 
     private fun onClickTest() {
         //Set receivers
-        var receivers = mutableListOf<BEFriend>(BEFriend("bent"))
-        var capsule = BECapsuleText(receivers)
-        //Set text
-        capsule.message = txtMessage_capsuleSegment.text.toString()
-        //Set time
-        capsule.time = tpTime_capsuleSegment.currentHour.toString() + ":" + tpTime_capsuleSegment.currentMinute.toString()
-        //Set date
-        var date = ""
-        date = date + dpDate_capsuleSegment.dayOfMonth + "-"
-        date = date + (dpDate_capsuleSegment.month + 1) + "-"
-        date += dpDate_capsuleSegment.year
-        capsule.date = date
-        //Set picture
-        if(this::pictureUri.isInitialized){
-            capsule.pictureUri = pictureUri
+        var sendingCapsules = loggedUserViewModel.newCapsule(requireContext())
+
+        for (cap in sendingCapsules){
+            cap.observe(viewLifecycleOwner){c->
+                //Print capsule
+                Log.d(TAG, c.toString())
+            }
         }
-        //Set location
-        capsule.latitude = latitude
-        capsule.longitude = longitude
-        //Print capsule
-        Log.d(TAG, capsule.toString())
+
     }
 
-    private fun asListMap(src: MutableList<BEFriend>): List<Map<String, String?>> {
-        return src.map{ person -> hashMapOf("name" to person.name) }
-    }
-
-    private fun setupFriendList() {
-        val adapter = SimpleAdapter(
-            requireContext(),
-            asListMap(friends.getAll()),
-            R.layout.friend_list_unit,
-            arrayOf("name"),
-            intArrayOf(R.id.name)
-        )
-
-        lvFriends.adapter = adapter
-    }
 
     companion object {
         fun newInstance() :CapsuleSegmentFragment{

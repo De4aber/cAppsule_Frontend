@@ -1,9 +1,12 @@
 package com.de4aber.cappsule.User
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import android.util.Log.DEBUG
 import androidx.lifecycle.*
+import com.de4aber.cappsule.Cappsule.CapsuleRepository
+import com.de4aber.cappsule.Cappsule.SendCapsuleDTO
 import com.de4aber.cappsule.Friend.FriendDTO
 import com.de4aber.cappsule.Friend.FriendRepository
 import com.de4aber.cappsule.Friend.FriendRequestDTO
@@ -13,10 +16,22 @@ import java.lang.NullPointerException
 private const val TAG = "LoggedUserViewModel"
 class LoggedUserViewModel():ViewModel() {
 
+
     lateinit var loggedUser: UserDTO
     private val friendRepository = FriendRepository();
     private val userRepo = UserRepo()
+    private val capsuleRepository = CapsuleRepository();
     var searchwordUser = ""
+
+
+    var latitudeNewCapsule: Double = 0.0
+    var longitudeNewCapsule: Double = 0.0
+    var photoNewCapsule : Bitmap? = null
+    var messageNewCapsule : String? = null
+    var timeNewCapsule: String? = null
+    var dateNewCapsule: String? = null
+    val recipientsNewCapsule: MutableList<FriendDTO> = mutableListOf()
+
 
     fun getFriends(): LiveData<List<FriendDTO>> {
         return friendRepository.getFriendsByUserId(loggedUser.id)
@@ -44,6 +59,18 @@ class LoggedUserViewModel():ViewModel() {
 
     fun sendFriendRequest(context: Context, toFriend: String): MutableLiveData<Boolean> {
         return friendRepository.requestFriendship(context, FriendRequestDTO(loggedUser.id, toFriend))
+    }
+
+    fun newCapsule(context: Context): MutableList<LiveData<Boolean>> {
+        val capsules = mutableListOf<LiveData<Boolean>>()
+
+        if(messageNewCapsule != null && timeNewCapsule != null && dateNewCapsule != null && recipientsNewCapsule.isNotEmpty()){
+            for (f in recipientsNewCapsule){
+                val cap = SendCapsuleDTO(loggedUser.id,f.username, messageNewCapsule!!, timeNewCapsule!!, dateNewCapsule!!)
+                capsules.add(capsuleRepository.sendCapsule(context, cap))
+            }
+        }
+        return capsules
     }
 
 }
