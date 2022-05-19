@@ -106,4 +106,8 @@ class LoggedUserViewModel():ViewModel() {
         return capsuleRepository.getCapsulesByReceiverId(loggedUser.id)
     }
 
+    fun getCapsuleById(id: Int): LiveData<Capsule> {
+        return capsuleRepository.getCapsuleById(id)
+    }
+
 }

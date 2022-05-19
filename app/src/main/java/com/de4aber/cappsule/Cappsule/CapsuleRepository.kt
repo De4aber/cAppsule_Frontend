@@ -74,7 +74,7 @@ class CapsuleRepository {
                 Log.d(TAG, "ReceiveCapsuleDTO received - ${receivedDTOs.size}")
                 val receivedCapsules: MutableList<Capsule> = mutableListOf()
                 for (dto in receivedDTOs){
-                    receivedCapsules.add(Capsule(dto.senderUsername,dto.message, dto.time, getDoubleFromString(dto.latitude), getDoubleFromString(dto.longitude), getBitmapFromString(dto.photo)))
+                    receivedCapsules.add(Capsule(dto.capsuleId,dto.senderUsername,dto.message, dto.time, getDoubleFromString(dto.latitude), getDoubleFromString(dto.longitude), getBitmapFromString(dto.photo)))
                 }
                 response.value = receivedCapsules
             }
@@ -86,6 +86,33 @@ class CapsuleRepository {
                 error: Throwable?
             ) {
                 Log.d(TAG, "failure in getCapsulesByReceiverId statusCode = $statusCode")
+            }
+
+        })
+        return response
+    }
+
+    fun getCapsuleById(CapsuleId: Int): LiveData<Capsule> {
+        val response: MutableLiveData<Capsule> = MutableLiveData()
+
+        httpClient.get("$url/GetById/$CapsuleId", object : AsyncHttpResponseHandler(){
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+                val dto = ReceiveCapsuleDTO(JSONObject(String(responseBody!!)))
+                Log.d(TAG, "ReceiveCapsuleDTO received - ${dto.capsuleId}")
+                response.value = Capsule(dto.capsuleId,dto.senderUsername,dto.message, dto.time, getDoubleFromString(dto.latitude), getDoubleFromString(dto.longitude), getBitmapFromString(dto.photo))
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "failure in getCapsuleById statusCode = $statusCode")
             }
 
         })

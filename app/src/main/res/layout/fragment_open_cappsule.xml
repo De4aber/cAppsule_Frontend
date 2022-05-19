@@ -39,7 +39,7 @@
             />
 
         <TextView
-            android:id="@+id/txt_username"
+            android:id="@+id/txt_username_fragOpenCapsule"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -79,7 +79,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txt_cappsuleText"
+                android:id="@+id/txt_cappsuleText_fragOpenCapsule"
                 android:layout_width="331dp"
                 android:layout_height="406dp"
                 android:background="@drawable/ic_text_background"
@@ -96,44 +96,42 @@
                 app:layout_constraintVertical_bias="0.349" />
 
             <LinearLayout
+                android:id="@+id/linearLayout_fragOpenCapsule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_cappsuleText"
-                android:layout_marginHorizontal="25dp"
-                android:gravity="center"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/txt_cappsuleText_fragOpenCapsule">
 
                 <Button
-                    android:id="@+id/btn_back"
+                    android:id="@+id/btn_back_fragOpenCapsule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="100dp"
-                    android:maxHeight="40dp"
-                    android:textAllCaps="false"
-                    android:text="&lt; Back"
-                    android:fontFamily="@font/champagne_limousines_bold"
-                    android:textSize="14dp"
                     android:layout_marginRight="25dp"
                     android:background="@drawable/back_button_style"
-                    />
+                    android:fontFamily="@font/champagne_limousines_bold"
+                    android:maxWidth="100dp"
+                    android:maxHeight="40dp"
+                    android:text="&lt; Back"
+                    android:textAllCaps="false"
+                    android:textSize="14dp" />
 
                 <Button
-                    android:id="@+id/btn_reply"
+                    android:id="@+id/btn_reply_fragOpenCapsule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:background="@drawable/reply_button_style"
+                    android:fontFamily="@font/champagne_limousines_bold"
                     android:maxWidth="100dp"
                     android:maxHeight="40dp"
                     android:text="Reply &gt;"
-                    android:fontFamily="@font/champagne_limousines_bold"
-                    android:textSize="14dp"
                     android:textAllCaps="false"
-                    android:layout_marginLeft="25dp"
-                    android:background="@drawable/reply_button_style"
-                    />
+                    android:textSize="14dp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
