@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import android.util.Log.DEBUG
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.de4aber.cappsule.Cappsule.Capsule
 import com.de4aber.cappsule.Cappsule.CapsuleRepository
@@ -26,12 +27,15 @@ class LoggedUserViewModel():ViewModel() {
     var searchwordUser = ""
 
 
-    var latitudeNewCapsule: Double = 0.0
-    var longitudeNewCapsule: Double = 0.0
+    var latitudeNewCapsule: Double? = null
+    var longitudeNewCapsule: Double? = null
     var photoNewCapsule : Bitmap? = null
     var messageNewCapsule : String? = null
     var timeNewCapsule: String? = null
     var dateNewCapsule: String? = null
+
+    var isTextNewCapsule:Boolean = true
+    var isTimeNewCapsule:Boolean = true
     val recipientsNewCapsule: MutableList<FriendDTO> = mutableListOf()
 
 
@@ -66,11 +70,34 @@ class LoggedUserViewModel():ViewModel() {
     fun newCapsule(context: Context): MutableList<LiveData<Boolean>> {
         val capsules = mutableListOf<LiveData<Boolean>>()
 
-        if(messageNewCapsule != null && timeNewCapsule != null && dateNewCapsule != null && recipientsNewCapsule.isNotEmpty()){
+        if(recipientsNewCapsule.isNotEmpty()){
             for (f in recipientsNewCapsule){
-                val cap = SendCapsuleDTO(loggedUser.id,f.username, messageNewCapsule!!, timeNewCapsule!!, dateNewCapsule!!)
+                val cap = SendCapsuleDTO(loggedUser.id,f.username)
+
+                if(isTextNewCapsule){
+                    cap.message = messageNewCapsule
+                }
+                else{
+                    Toast.makeText(context,"Sending photos is not implemented", Toast.LENGTH_SHORT).show()
+                    cap.photo = null
+                    return capsules
+                }
+
+                if(isTimeNewCapsule){
+                    cap.time = timeNewCapsule
+                    cap.date = dateNewCapsule
+                }
+                else{
+                    cap.latitude = latitudeNewCapsule
+                    cap.longitude = longitudeNewCapsule
+                }
+
+                Log.d(TAG, cap.toString())
                 capsules.add(capsuleRepository.sendCapsule(context, cap))
             }
+        }
+        else{
+            Toast.makeText(context,"You need to choose at least one recipient", Toast.LENGTH_SHORT).show()
         }
         return capsules
     }
