@@ -14,7 +14,7 @@
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/activity_user.xml" value="0.4732510288065844" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_add_friend.xml" value="0.4720416124837451" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_blank.xml" value="0.36666666666666664" />
-        <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_capsule_segment.xml" value="0.42991452991452994" />
+        <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_capsule_segment.xml" value="0.36666666666666664" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_friend_list.xml" value="0.2" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_friend_request.xml" value="0.36666666666666664" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_friend_request_list.xml" value="0.36666666666666664" />
@@ -33,47 +33,38 @@
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_user_list.xml" value="0.25" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/fragment_user_search_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/friend_fragment.xml" value="0.18802083333333333" />
-        <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/friend_list_unit.xml" value="0.3009833262077811" />
-        <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/list_item_capsule.xml" value="0.67" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/list_item_friend.xml" value="0.25" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/list_item_friendrequest.xml" value="0.36666666666666664" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/list_item_user.xml" value="0.33" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/list_item_user_search.xml" value="0.36666666666666664" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/recycler_view_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Cecilie/Datamatiker/Eksamen 4 semester/cAppsule_Frontend/app/src/main/res/layout/user_fragment.xml" value="0.1" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/drawable/back_button_style.xml" value="0.1765" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/drawable/ic_text_background.xml" value="0.1765" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/drawable/line.xml" value="0.1" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/drawable/loginbuttonstyle.xml" value="0.1765" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/drawable/reply_button_style.xml" value="0.1765" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/drawable/test.xml" value="0.321" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/font/champagnelimousine.xml" value="0.2824074074074074" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/activity_user.xml" value="0.5" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_add_friend.xml" value="0.16304347826086957" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_capsule_segment.xml" value="0.25" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_friend_list.xml" value="0.13703703703703704" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_friend_segment.xml" value="0.22" />
-        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_home_segment.xml" value="0.33" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_home_segment.xml" value="0.25" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_map_segment.xml" value="0.12407407407407407" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_new_capsule_to_friend_list.xml" value="0.16304347826086957" />
+        <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_open_cappsule.xml" value="0.25" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/fragment_user_list.xml" value="0.12407407407407407" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/list_item_friend.xml" value="0.4111111111111111" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/list_item_user.xml" value="0.25" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/layout/user_fragment.xml" value="0.12407407407407407" />
         <entry key="..\:/dev/cAppsule_Frontend/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1935" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_add_location.xml" value="0.25" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_add_location2.xml" value="0.21614583333333334" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_add_location3.xml" value="0.26927083333333335" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_create_capsule.xml" value="0.33" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_login.xml" value="0.20871327254305977" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_main.xml" value="0.20871327254305977" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_see_cappsule_on_map.xml" value="0.358695652173913" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_take_photo.xml" value="0.358695652173913" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/fragment_home_segment.xml" value="0.358695652173913" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/fragment_map_segment.xml" value="0.358695652173913" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/fragment_maps.xml" value="0.358695652173913" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/fragment_user_list.xml" value="0.358695652173913" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/friend_list_unit.xml" value="0.33" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/list_item_friend.xml" value="0.358695652173913" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/list_item_user.xml" value="0.358695652173913" />
-        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/user_fragment.xml" value="0.358695652173913" />
+        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_login.xml" value="0.26992753623188404" />
+        <entry key="..\:/work/cappsule/cAppsule_Frontend/app/src/main/res/layout/activity_register.xml" value="0.25" />
       </map>
     </option>
   </component>
