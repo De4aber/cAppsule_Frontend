@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.de4aber.cappsule.Cappsule.Capsule
 import com.de4aber.cappsule.Friend.FriendDTO
+import com.de4aber.cappsule.Friendlist.AddFriendFragment
 import com.de4aber.cappsule.R
 import com.de4aber.cappsule.User.LoggedUserViewModel
 
@@ -63,11 +65,20 @@ class HomeSegmentFragment : Fragment() {
         : RecyclerView.ViewHolder(view){
         private lateinit var capsule: Capsule
         private val txtUsername: TextView = itemView.findViewById(R.id.txtNewCapsule_ListItemCapsule)
+        private val btnOpen: Button = itemView.findViewById(R.id.btnOpen_ListItemCapsule)
 
 
         fun bind(capsule1: Capsule){
             this.capsule = capsule1
             txtUsername.text = this.capsule.senderUsername
+            btnOpen.setOnClickListener { openCapsule(capsule1.capsuleId) }
+        }
+
+        private fun openCapsule(capsuleId: Int) {
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragShowing, OpenCapsuleFragment.newInstance(capsuleId))
+                .commit()
         }
 
     }
