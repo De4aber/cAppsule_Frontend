@@ -5,7 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.de4aber.cappsule.Login.LoginDTO
 import com.de4aber.cappsule.User.UserActivity
 import com.de4aber.cappsule.Utility.SecurityHelper
 import com.scottyab.aescrypt.AESCrypt
@@ -16,6 +19,11 @@ import java.security.GeneralSecurityException
 
 class LoginActivity : AppCompatActivity() {
     var securityHelper: SecurityHelper = SecurityHelper()
+
+    private val loginViewModel : LoginViewModel by lazy {
+        ViewModelProvider(this).get(LoginViewModel::class.java)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +51,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onClickLogin() {
-
-        val intent = Intent(this, SeeCappsuleOnMapActivity::class.java)
-        startActivity(intent);
         val plainPW = editTextTextPassword.text.toString()
         val username = editTextTextPersonName.text.toString()
+
+        loginViewModel.login(this, LoginDTO(username, plainPW))
+            .observe(this){jwt->
+                Toast.makeText(this, "Jwt" + jwt.message, Toast.LENGTH_SHORT).show()
+                if(jwt.jwt.isNullOrEmpty() || jwt.jwt.startsWith("null")){
+
+                }
+                else{
+                    val intent = MainActivity.newIntent(this, jwt.userId)
+                    startActivity(intent);
+                }
+            }
+
+        /*
         val key = securityHelper.getEncryptionKey()
         try {
             val encryptedPassword = AESCrypt.encrypt(key, plainPW)
@@ -55,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
         }        catch (e: GeneralSecurityException){
             throw Exception("Key is most-likely not generated \n $e")
         }
+         */
 
 
     }
