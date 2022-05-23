@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.de4aber.cappsule.Home.OpenCapsuleFragment
 import com.de4aber.cappsule.R
+import com.de4aber.cappsule.User.LoggedUserViewModel
 import com.de4aber.cappsule.Utility.BECapsuleText
 import com.de4aber.cappsule.Utility.BEFriend
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -20,6 +23,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_see_cappsule_on_map.*
+import kotlinx.android.synthetic.main.activity_see_cappsule_on_map.btnMapZoom
+import kotlinx.android.synthetic.main.activity_see_cappsule_on_map.btnOpenCapsuleFromMap
+import kotlinx.android.synthetic.main.fragment_map_segment.*
 
 /**
  * A simple [Fragment] subclass.
@@ -27,6 +33,10 @@ import kotlinx.android.synthetic.main.activity_see_cappsule_on_map.*
  * create an instance of this fragment.
  */
 class MapSegmentFragment : Fragment(), OnMapReadyCallback {
+
+    private val loggedUserViewModel : LoggedUserViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(LoggedUserViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,21 +58,15 @@ class MapSegmentFragment : Fragment(), OnMapReadyCallback {
 
     private var wantZoom: Boolean = false
 
-    private var liste = listOf<BEFriend>(BEFriend("bob"), BEFriend("bent"))
-
     private lateinit var selectedMarker: Marker
 
     private lateinit var currentLocationMarker: Marker
 
-    val allCappsules = listOf<BECapsuleText>(
-        BECapsuleText(liste),
-        BECapsuleText(liste)
-    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        
         val mapFragment = SupportMapFragment.newInstance()
 
         childFragmentManager
@@ -76,27 +80,29 @@ class MapSegmentFragment : Fragment(), OnMapReadyCallback {
         //Initialize fused location
         client = LocationServices.getFusedLocationProviderClient(requireActivity())
 
+
         btnMapZoom.setOnClickListener { onClickZoom() }
         btnOpenCapsuleFromMap.setOnClickListener { onClickOpen() }
+        btnUpdateLocation.setOnClickListener { getCurrentLocation()}
 
-        allCappsules[0].latitude = 55.471793424146234
-        allCappsules[0].longitude = 8.451112645531
-        allCappsules[0].cappsuleID = 1
-        allCappsules[1].latitude = 55.4677613612147
-        allCappsules[1].longitude = 8.453494446915784
-        allCappsules[1].cappsuleID = 2
+        onClickZoom()
     }
+
 
     private fun onClickOpen() {
         if(!this::selectedMarker.isInitialized){
             Toast.makeText(requireActivity(), "Please select a marker to open it!", Toast.LENGTH_SHORT).show()
             return
         }
-        if(selectedMarker.equals(currentLocationMarker)){
+        if(selectedMarker == currentLocationMarker){
             Toast.makeText(requireActivity(), "You cannot open your own location!", Toast.LENGTH_SHORT).show()
             return
         }
-        Toast.makeText(requireActivity(), "Not implemented yet", Toast.LENGTH_SHORT).show()
+
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragShowing, OpenCapsuleFragment.newInstance(selectedMarker.tag as Int))
+            .commit()
     }
 
     private fun ZoomOnCurrentLocation(coords: LatLng) {
@@ -121,7 +127,7 @@ class MapSegmentFragment : Fragment(), OnMapReadyCallback {
             if(it != null){
                 currentLatitude = it.latitude
                 currentLongitude = it.longitude
-                var coords = LatLng(currentLatitude, currentLongitude)
+                val coords = LatLng(currentLatitude, currentLongitude)
                 currentLocationMarker = mMap.addMarker(MarkerOptions().position(coords).title("Your location"))
                 if(wantZoom){
                     ZoomOnCurrentLocation(coords)
@@ -152,17 +158,17 @@ class MapSegmentFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setupAllCapsules(){
-        var i = 1
-        allCappsules.forEach {
-            var loc = LatLng(it.latitude,it.longitude)
-            var marker = mMap.addMarker(MarkerOptions().position(loc).title("${i}"))
-            marker.tag = it
-            i++
-            hack(marker)
+
+        loggedUserViewModel.receiveCapsules().observe(requireActivity()){
+                caps->
+            for (it in caps){
+                if(it.latitude != null && it.longitude != null) {
+                    val loc = LatLng(it.latitude, it.longitude)
+                    val marker = mMap.addMarker(MarkerOptions().position(loc).title(it.senderUsername))
+                    marker.tag = it.capsuleId
+                }
+            }
         }
-    }
-    private fun hack(marker: Marker){
-        currentLocationMarker = marker
     }
 
     companion object {
