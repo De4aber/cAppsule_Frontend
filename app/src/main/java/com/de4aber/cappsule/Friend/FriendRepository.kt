@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import com.de4aber.cappsule.User.SearchForUserIsFriendDTO
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
-import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import cz.msebera.android.httpclient.entity.StringEntity
 import org.json.JSONArray
