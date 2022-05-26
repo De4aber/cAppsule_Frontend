@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userId = intent.getIntExtra(EXTRA_USERID, -1)
-        loggedUserViewModel.setUser(userId).observe(this, Observer { u->
+        loggedUserViewModel.getUser(userId).observe(this, Observer { u->
             loggedUserViewModel.loggedUser = u
             setContentView(R.layout.activity_main)
             supportFragmentManager.beginTransaction()

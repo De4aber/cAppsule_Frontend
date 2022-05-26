@@ -90,6 +90,7 @@ class CapsuleSegmentFragment : Fragment() {
 
         }
         else{
+            btnTest_capsuleSegment.isEnabled = true
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragTextNPicture_newCapsule, NewCapsuleAddTextFragment.newInstance())

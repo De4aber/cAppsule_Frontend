@@ -19,21 +19,21 @@ import java.lang.NullPointerException
 private const val TAG = "LoggedUserViewModel"
 class LoggedUserViewModel():ViewModel() {
 
-
-    lateinit var loggedUser: UserDTO
     private val friendRepository = FriendRepository();
     private val userRepo = UserRepo()
     private val capsuleRepository = CapsuleRepository();
+
+    lateinit var loggedUser: UserDTO
+
     var searchwordUser = ""
 
-
+    //new capsule
     var latitudeNewCapsule: Double? = null
     var longitudeNewCapsule: Double? = null
     var photoNewCapsule : Bitmap? = null
     var messageNewCapsule : String? = null
     var timeNewCapsule: String? = null
     var dateNewCapsule: String? = null
-
     var isTextNewCapsule:Boolean = true
     var isTimeNewCapsule:Boolean = true
     val recipientsNewCapsule: MutableList<FriendDTO> = mutableListOf()
@@ -51,7 +51,7 @@ class LoggedUserViewModel():ViewModel() {
         return friendRepository.acceptFriendRequest(loggedUser.id,friendshipId)
     }
 
-    fun setUser(id: Int): LiveData<UserDTO> {
+    fun getUser(id: Int): LiveData<UserDTO> {
         return userRepo.getUserById(id)
     }
 
